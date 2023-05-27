@@ -26,8 +26,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      filename: "index.html",
+      template: "./src/template/posting-view.html",
+      filename: "posting-view.html",
       inject: true,
     }),
     new webpack.ProvidePlugin({
