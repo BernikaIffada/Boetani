@@ -30,13 +30,14 @@ module.exports = {
         nanti lu ubah disini man file yang mau lu developt. 
         kalo gua kan yang index.html jadi gua ngubahnya ke file index.html
       */
-      template: "./src/template/posting-view.html",
-      filename: "posting-view.html",
-      inject: true,
 
-      // template: "./src/index.html",
-      // filename: "index.html",
+      // template: "./src/template/posting-view.html",
+      // filename: "posting-view.html",
       // inject: true,
+
+      template: "./src/index.html",
+      filename: "index.html",
+      inject: true,
     }),
     new webpack.ProvidePlugin({
       $: "jquery",

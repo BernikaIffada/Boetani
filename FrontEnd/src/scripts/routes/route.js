@@ -2,16 +2,20 @@ import auth from "./middleware";
 import landing from "../view/pages/landing";
 import notFound from "../view/pages/notFound";
 import modalLogin from "../view/modal/login";
+import registration from "../view/pages/registration";
+
 
 function logout() {
   sessionStorage.removeItem("user");
   location = "/";
 }
 
+// regis route
 const route = {
   "/": landing,
   404: notFound,
   login: modalLogin,
+  registration: registration,
 };
 
 function routing(url = 404) {
