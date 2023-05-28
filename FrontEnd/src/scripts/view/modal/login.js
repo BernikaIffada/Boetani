@@ -2,6 +2,7 @@ import $ from "jquery";
 import helper from "../../helper";
 const login = {
   show(root) {
+    $("body").addClass("modal_open");
     this.root = root;
     const html = `
         <div id="modal_login" class="">
@@ -79,6 +80,7 @@ const login = {
 
   hiddenModal(event) {
     if (event.target === event.currentTarget) {
+      $("body").removeClass("modal_open");
       $(this).remove();
     }
   },
