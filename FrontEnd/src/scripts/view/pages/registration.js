@@ -66,6 +66,7 @@ const registration = {
     }
 
     $(this).html(iconButton);
+    $(root).html("");
   },
 };
 

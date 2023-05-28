@@ -4,6 +4,7 @@ import notFound from "../view/pages/notFound";
 import modalLogin from "../view/modal/login";
 import registration from "../view/pages/registration";
 
+
 function logout() {
   sessionStorage.removeItem("user");
   location = "/";
