@@ -15,6 +15,7 @@ body,
 body.modal_open {
   overflow-y: hidden;
 }
+
 header {
   transition: 250ms ease-in-out;
 }
@@ -22,6 +23,7 @@ header {
 header.scrolled {
   background-color: white !important;
 }
+
 
 // nav style custom
 nav {
@@ -460,9 +462,11 @@ svg.background_landing {
             font-size: 20px;
           }
         }
+
       }
     }
   }
+
 
   #notifikasi_section,
   #postingan_section {
@@ -757,10 +761,13 @@ svg.background_landing {
             }
           }
         }
+
+     
       }
     }
   }
 }
+
 
 // modal must login
 #modal_alert_login {

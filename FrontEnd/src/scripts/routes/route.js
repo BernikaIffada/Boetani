@@ -5,6 +5,7 @@ import modalLogin from "../view/modal/login";
 import modalAlertLogin from "../view/modal/alert-login";
 import registration from "../view/pages/registration";
 
+
 function logout() {
   sessionStorage.removeItem("user");
   location = "/";
