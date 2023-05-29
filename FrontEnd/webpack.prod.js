@@ -2,6 +2,9 @@ const { merge } = require("webpack-merge");
 const common = require("./webpack.common.js");
 
 module.exports = merge(common, {
+  output: {
+    assetModuleFilename: "assets/[hash][ext]",
+  },
   mode: "production",
   module: {
     rules: [

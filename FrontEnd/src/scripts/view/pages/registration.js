@@ -3,18 +3,18 @@ const registration = {
     $("nav .menu_container a").removeClass("isActive");
     $("nav .menu_container #nav_option a:last-of-type").addClass("isActive");
     const html = `
-      <div id="registration_page">
+      <div id="registration_page" tabindex="0">
         <div class="content">
           <h1 class="title_modal">Registrasi Akun Boetani</h1>
-          <div class="input_group">
+          <div class="input_group" tabindex="0">
             <label for="fullname_input">Email</label>
             <input name="fullname" type="text" id="fullname_input" placeholder="Masukkan nama lengkap asli"/>
           </div>
-          <div class="input_group">
+          <div class="input_group" tabindex="0">
             <label for="email_input_registration">Email</label>
             <input name="email" type="email" id="email_input_registration" placeholder="Alamat email"/>
           </div>
-          <div class="input_group">
+          <div class="input_group" tabindex="0">
             <label for="password_input_registration">Password</label>
               <input name="password" type="password" id="password_input_registration" placeholder="Masukkan kata sandi baru"/>
               <button data-action="toggle_visibility_password">
@@ -27,7 +27,7 @@ const registration = {
                 </svg>
               </button>
           </div>
-          <div class="button_group">
+          <div class="button_group" tabindex="0">
               <input type="submit" value="Daftar Sekarang"/> 
               <span>atau</span>
               <a href="/#/login">Sudah punya akun? Masuk</a>
@@ -66,7 +66,6 @@ const registration = {
     }
 
     $(this).html(iconButton);
-    $(root).html("");
   },
 };
 
