@@ -1,6 +1,7 @@
 import anime from "animejs";
 import UrlParser from "../routes/url-parser.js";
 import routing from "../routes/route.js";
+import $ from "jquery";
 
 export default class App {
   constructor({ header, main, footer }) {
@@ -34,6 +35,21 @@ export default class App {
         setTimeout(() => {
           drawer.style.display = "none";
         }, 410);
+      }
+    });
+
+    // skip link listener
+    $("#tocontent").click((ev) => {
+      ev.preventDefault();
+      // console.log($("#main").children("*[tabindex='0']"));
+      $("#main").focus();
+    });
+
+    $(window).scroll(() => {
+      if ($(window).scrollTop() >= 60) {
+        $("header").addClass("scrolled");
+      } else {
+        $("header").removeClass("scrolled");
       }
     });
   }

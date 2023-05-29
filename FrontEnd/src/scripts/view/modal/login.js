@@ -3,16 +3,17 @@ import helper from "../../helper";
 const login = {
   show(root) {
     $("body").addClass("modal_open");
+    $(".modal").remove();
     this.root = root;
     const html = `
-        <div id="modal_login" class="">
+        <div id="modal_login" class="" tabindex="0">
             <div class="modal_content">
                 <h1 class="title_modal">Login</h1>
-                <div class="input_group">
+                <div class="input_group" tabindex="0">
                     <label for="email_input">Email</label>
                     <input name="email" type="email" id="email_input" placeholder="Alamat email"/>
                 </div>
-                <div class="input_group">
+                <div class="input_group" tabindex="0">
                     <label for="password_input">Password</label>
                     <input name="password" type="password" id="password_input" placeholder="Masukkan kata sandi"/>
                     <button data-action="toggle_visibility_password">
@@ -25,7 +26,7 @@ const login = {
                       </svg>
                     </button>
                 </div>
-                <div class="button_group">
+                <div class="button_group" tabindex="0">
                     <input type="submit" value="Masuk"/> 
                     <span>atau</span>
                     <a href="/#/registration">Belum punya akun? Daftar</a>
@@ -44,6 +45,7 @@ const login = {
     // add listener
     $(".input_group button[data-action='toggle_visibility_password']").click(this.toggleVisibilityPassword);
     $("#modal_login").click(this.hiddenModal);
+    $("#modal_login .button_group > a").click(this.hiddenModal);
 
     // back history url
     const prevUrl = sessionStorage.getItem("urlPrev");
@@ -81,7 +83,7 @@ const login = {
   hiddenModal(event) {
     if (event.target === event.currentTarget) {
       $("body").removeClass("modal_open");
-      $(this).remove();
+      $("#modal_login").remove();
     }
   },
 };

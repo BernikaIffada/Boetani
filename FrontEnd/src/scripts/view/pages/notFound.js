@@ -1,3 +1,5 @@
+import $ from "jquery";
+
 const notFound = {
   index({ root }) {
     $("nav .menu_container a").removeClass("isActive");
