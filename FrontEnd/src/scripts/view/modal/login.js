@@ -97,7 +97,7 @@ const login = {
       inputVal.push(obj);
     });
 
-    // fetch("loc")
+    // todo login
   },
 };
 
