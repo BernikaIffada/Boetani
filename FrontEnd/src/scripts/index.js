@@ -5,6 +5,7 @@ import App from "./view/App.js";
 
 // registry custom element
 import "./view/components/dev-member-card";
+import "./view/components/question-card";
 
 $(document).ready(() => {
   // init app

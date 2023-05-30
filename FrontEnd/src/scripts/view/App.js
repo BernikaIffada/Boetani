@@ -2,6 +2,7 @@ import anime from "animejs";
 import UrlParser from "../routes/url-parser.js";
 import routing from "../routes/route.js";
 import $ from "jquery";
+import helper from "../helper.js";
 
 export default class App {
   constructor({ header, main, footer }) {
@@ -9,9 +10,7 @@ export default class App {
     this.main = main;
     this.footer = footer;
 
-    // drawer transition mobile
-    $("nav > button").click(function () {
-      $(this).toggleClass("isCollapse");
+    function menuHandler(elem) {
       const drawer = $("nav > button ~ div")[0];
       const drawerOptions = {
         targets: drawer,
@@ -20,7 +19,7 @@ export default class App {
         scale: 1,
       };
 
-      if (this.classList.contains("isCollapse")) {
+      if (elem.classList.contains("isCollapse")) {
         drawer.style.display = "flex";
         drawer.style.flexDirection = "column";
         anime({
@@ -36,7 +35,15 @@ export default class App {
           drawer.style.display = "none";
         }, 410);
       }
+    }
+
+    // drawer transition mobile
+    $("nav > button").click(function () {
+      $(this).toggleClass("isCollapse");
     });
+
+    // listen class
+    helper.addClassNameListener($("nav>button")[0], menuHandler);
 
     // skip link listener
     $("#tocontent").click((ev) => {

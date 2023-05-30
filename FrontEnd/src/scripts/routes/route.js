@@ -4,6 +4,13 @@ import notFound from "../view/pages/notFound";
 import modalLogin from "../view/modal/login";
 import modalAlertLogin from "../view/modal/alert-login";
 import registration from "../view/pages/registration";
+import questions from "../view/pages/questions";
+import posting from "../view/pages/posting";
+import profile from "../view/pages/profile";
+import helper from "../helper";
+import notificationSVG from "../../template/notification-svg.html";
+
+import $ from "jquery";
 
 function logout() {
   sessionStorage.removeItem("user");
@@ -16,21 +23,30 @@ const route = {
   404: notFound,
   login: modalLogin,
   registration: registration,
-  posts: modalAlertLogin,
-  modalalertlogin: modalAlertLogin,
+  questions: questions,
+  needAuth: {
+    // addposting: posting,
+    profile: profile,
+  },
 };
 
 function routing(url = 404) {
   const user = auth.index();
 
   if (user) {
+    const ww = innerWidth;
     const con = $("header > nav  #nav_option");
 
     con.addClass("lg:w-[37%] xl:w-[32%] 2xl:w-[28%]");
+    let notificationElement = `<a href="#/notification" class="font-['opensans-semibold'] relative no-underline text-[#575757] flex items-center px-[15px] py-[8px] w-full border border-[#F6F6F6] md:w-fit md:border-0">Notification</a>`;
+    if (ww > 768) {
+      con.addClass("has_login");
+      notificationElement = `<a href="#/notification" class="notification_anchor">${notificationSVG}</a>`;
+    }
 
     con.html("");
     con.html(`
-    <a href="#/notification" class="font-['opensans-semibold'] relative no-underline text-[#575757] flex items-center px-[15px] py-[8px] w-full border border-[#F6F6F6] md:w-fit md:border-0">Notifikasi</a>
+      ${notificationElement}
     <a
       href="#/profile/${user.id}"
       class="font-['opensans-semibold'] relative rounded-b no-underline text-[#575757] flex items-center px-[15px] py-[8px] w-full border border-[#F6F6F6] md:w-fit md:rounded-2xl md:border-[#AE4F18] md:bg-[#AE4F18] md:text-white lg:px-[35px] lg:py-0 "
@@ -39,18 +55,35 @@ function routing(url = 404) {
     `);
   }
 
-  const page = route[url];
-
   if (url === "logout") {
     logout();
     return undefined;
   }
 
-  const urlLandingIgnore = ["/", "modalalertlogin", "login", "posts"];
+  const urlLandingIgnore = ["/", "modalalertlogin", "login"];
   if (!urlLandingIgnore.includes(url)) {
     $("body").removeClass("landing_session");
   }
 
+  // remove collapse navbar if change page
+  $("nav > button").removeClass("isCollapse");
+
+  // routing url need auth
+  if (route.needAuth.hasOwnProperty(url)) {
+    if (user) {
+      // return page
+      return route.needAuth[url];
+    } else {
+      // back history url
+      const prevUrl = sessionStorage.getItem("urlPrev");
+      helper.modifyUrl("This page", prevUrl);
+      // return modal alert login
+      return modalAlertLogin;
+    }
+  }
+
+  // return page doesn't need a authentication
+  const page = route[url];
   return page;
 }
 

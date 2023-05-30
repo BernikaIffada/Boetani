@@ -35,6 +35,7 @@ const landing = {
           mouse: 0,
           touch: 100,
         },
+        pagination: false,
         mediaQuery: "min",
         breakpoints: {
           768: {

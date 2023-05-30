@@ -1,3 +1,4 @@
+import $ from "jquery";
 const registration = {
   index({ root }) {
     $("nav .menu_container a").removeClass("isActive");
@@ -7,7 +8,7 @@ const registration = {
         <div class="content">
           <h1 class="title_modal">Registrasi Akun Boetani</h1>
           <div class="input_group" tabindex="0">
-            <label for="fullname_input">Email</label>
+            <label for="fullname_input">Nama lengkap</label>
             <input name="fullname" type="text" id="fullname_input" placeholder="Masukkan nama lengkap asli"/>
           </div>
           <div class="input_group" tabindex="0">
