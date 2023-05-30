@@ -12,6 +12,7 @@ import notificationSVG from "../../template/notification-svg.html";
 
 import $ from "jquery";
 
+
 function logout() {
   sessionStorage.removeItem("user");
   location = "/";
