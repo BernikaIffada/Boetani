@@ -7,14 +7,14 @@
     <title>Boetani</title>
   </head>
   <body>
-    <div class="lg:px-[35px] lg:py-0 lg:w-[37%] xl:w-[32%] bg-[#0000004d] 2xl:w-[28%] fixed w-full bg-black h-full top-0 left-0 h-max hidden"></div>
-    <a href="#main" class="absolute -top-6 focus:top-3 left-2" tabindex="0">Go to content</a>
+    <div class="lg:px-[35px] lg:py-0 lg:w-[37%] xl:w-[32%] bg-[#0000004d] 2xl:w-[28%] fixed w-full bg-black top-0 left-0 h-max hidden"></div>
+    <a href="#" id="tocontent" class="absolute -top-40 focus:top-3 left-10 focus:z-[1000] p-6 rounded-xl bg-white font-bold" tabindex="0">Skip to content</a>
     <!-- header -->
 
     <header id="header" class="p-3 mx-auto sticky top-0 bg-white z-50">
       <nav class="container mx-auto flex justify-between relative my-1">
         <a href="/"><img class="w-[93px] md:w-[109px] xl:w-[120px] 2xl:w-[155px]" src="./assets/img/logo-boetani.png" alt="brand.png" /></a>
-        <button class="peer group relative flex flex-col w-[58px] h-[44px] justify-between m-0 py-[9px] px-[12px] rounded border border-[#872800] shadow-[0_2px_5px_0.2px_#AE4F18] md:hidden">
+        <button class="peer group relative bg-white flex flex-col w-[58px] h-[44px] justify-between m-0 py-[9px] px-[12px] rounded border border-[#872800] shadow-[0_2px_5px_0.2px_#AE4F18] md:hidden">
           <div class="h-[3px] transition-all duration-[0.4s] origin-[0%_100%] ease-in-out w-full bg-[#872800] rounded group-[.isCollapse]:rotate-[44deg] group-[.isCollapse]:translate-x-[4px]"></div>
           <div class="h-[3px] transition-all duration-[0.2s] ease-in-out w-full bg-[#872800] rounded group-[.isCollapse]:scale-0"></div>
           <div class="h-[3px] transition-all duration-[0.4s] origin-[0%_100%] ease-in-out w-full bg-[#872800] rounded group-[.isCollapse]:rotate-[-44deg] group-[.isCollapse]:translate-x-[6px]"></div>
@@ -23,17 +23,24 @@
           class="menu_container scale-0 origin-top overflow-hidden box-border absolute bottom-[-180px] w-3/5 right-0 bg-white rounded md:relative md:scale-100 md:bottom-0 md:flex md:flex-row md:justify-between md:rotate-[0deg] md:w-[70%] lg:w-[65%] lg:text-lg xl:text-xl 2xl:text-2xl"
         >
           <div class="nav_fix md:flex md:justify-between md:w-[45%] lg:w-[40%]">
-            <a href="/" class="font-['opensans-semibold'] relative rounded-t no-underline text-[#575757] flex items-center font-['Open_Sans'] px-[15px] py-[8px] w-full border border-[#F6F6F6] md:w-fit md:border-0 isActive">Beranda</a>
-            <a href="#/posts" class="font-['opensans-semibold'] relative no-underline text-[#575757] flex items-center font-['Open_Sans'] px-[15px] py-[8px] w-full border border-[#F6F6F6] md:w-fit md:border-0">Postingan</a>
+            <a href="/" class="font-['opensans-semibold'] relative rounded-t no-underline text-[#575757] flex items-center px-[15px] py-[8px] w-full border border-[#F6F6F6] md:w-fit md:border-0 isActive">Beranda</a>
+            <a href="#/posts" class="font-['opensans-semibold'] relative no-underline text-[#575757] flex items-center px-[15px] py-[8px] w-full border border-[#F6F6F6] md:w-fit md:border-0">Postingan</a>
           </div>
 
           <div id="nav_option" class="md:flex md:justify-between md:w-[35%] lg:w-[32%] xl:w-[28%] 2xl:w-[25%]">
-            <a href="#/login" class="font-['opensans-semibold'] relative no-underline text-[#575757] flex items-center font-['Open_Sans'] px-[15px] py-[8px] w-full border border-[#F6F6F6] md:w-fit md:border-0">Login</a>
+            <a href="#/login" class="font-['opensans-semibold'] relative no-underline text-[#575757] flex items-center px-[15px] py-[8px] w-full border border-[#F6F6F6] md:w-fit md:border-0">Login</a>
             <a
               href="#/registration"
+<<<<<<< HEAD
               class="font-['opensans-semibold'] relative rounded-b no-underline text-[#575757] flex items-center font-['Open_Sans'] px-[15px] py-[8px] w-full border border-[#F6F6F6] md:w-fit md:rounded-full md:border-[#AE4F18] md:bg-[#AE4F18] md:px-6 md:text-white"
               >Register</a
             >
+=======
+
+              class="font-['opensans-semibold'] relative rounded-b no-underline text-[#575757] flex items-center px-[15px] py-[8px] w-full border border-[#F6F6F6] md:w-fit md:rounded-full md:border-[#AE4F18] md:bg-[#AE4F18] md:px-6 md:text-white"
+              >Register</a>
+
+>>>>>>> 20cdd58081dcaac1d926c532b4a91d8fc4a8f83a
           </div>
         </div>
       </nav>
@@ -44,20 +51,20 @@
     <!-- main -->
     <!-- footer -->
     <footer id="footer" class="bg-[#67815926] mx-auto w-full">
-      <div class="p-3 mx-auto container md:flex md:flex-col md:justify-center md:items-center">
+      <div class="p-3 mx-auto container flex flex-col justify-center items-center">
         <img src="./assets/img/logo-boetani.png" class="w-[100px] md:w-[118px] xl:w-[130px] 2xl:w-[170px]" alt="brand.jpg" />
         <span class="mt-[20px] block font-['opensans-semibold'] text-lg text-[#143317] w-[75%] text-justify md:text-center md:w-[76%] lg:w-[60%]"
           >WADAH TERBAIK UNTUK BELAJAR BERTANI DENGAN FORUM DISKUSI, DAN MENGENAL BUDIDAYA YANG ASRI DENGAN BENAR</span
         >
-        <div class="mt-[20px] mb-[10px] social flex justify-between items-center md:flex-col md:gap-y-4">
+        <div class="mt-[20px] mb-[10px] social flex justify-between items-center flex-col gap-y-4">
           <!-- email -->
-          <a href="mailto:sib4@dicoding.org" class="flex justify-between items-center bg-white rounded-full px-[15px] py-[5px] md:order-1">
+          <a href="mailto:sib4@dicoding.org" class="flex justify-between items-center bg-white rounded-full px-[15px] py-[5px] order-1">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-[28px] h-[34px]" width="10" height="9" viewBox="0 0 10 9" fill="none">
               <path d="M10 1.5C10 0.95 9.55 0.5 9 0.5H1C0.45 0.5 0 0.95 0 1.5V7.5C0 8.05 0.45 8.5 1 8.5H9C9.55 8.5 10 8.05 10 7.5V1.5ZM9 1.5L5 4L1 1.5H9ZM9 7.5H1V2.5L5 5L9 2.5V7.5Z" fill="#143317" />
             </svg>
             <span class="block ml-[10px] pl-[10px] text-[#143317] border-l-2 border-[#49644033] py-[4px]">sib4@dicoding.org</span>
           </a>
-          <div class="flex justify-between items-end gap-x-2 md:order-0">
+          <div class="flex justify-between items-end gap-x-2 order-0">
             <!-- linkedin -->
             <a href="#" class="p-[12px] bg-[#67815999] rounded-full">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-[20px] h-[20px]" width="10" height="9" viewBox="0 0 10 9" fill="none">

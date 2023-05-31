@@ -3,6 +3,9 @@ import $ from "jquery";
 import "../styles/style.scss";
 import App from "./view/App.js";
 
+// registry custom element
+import "./view/components/dev-member-card";
+
 $(document).ready(() => {
   // init app
   const app = new App({
