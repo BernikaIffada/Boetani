@@ -46,6 +46,7 @@ const login = {
     $(".input_group button[data-action='toggle_visibility_password']").click(this.toggleVisibilityPassword);
     $("#modal_login").click(this.hiddenModal);
     $("#modal_login .button_group > a").click(this.hiddenModal);
+    $("#modal_login .button_group > input[type='submit']").click(this.loginuser);
 
     // back history url
     const prevUrl = sessionStorage.getItem("urlPrev");
@@ -85,6 +86,18 @@ const login = {
       $("body").removeClass("modal_open");
       $("#modal_login").remove();
     }
+  },
+
+  loginuser() {
+    let inputVal = [];
+    const inputElem = $("#modal_login  .input_group > input");
+    inputElem.each((index, elem) => {
+      const obj = {};
+      obj[elem.name] = elem.value;
+      inputVal.push(obj);
+    });
+
+    // todo login
   },
 };
 
