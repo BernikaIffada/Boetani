@@ -27,9 +27,11 @@
                                     <input type="password" class="form-control form-control-user" id="password2" name="password2" placeholder="Konfirmasi password">
                                 </div>
                             </div>
+                            <div>
                             <button type="submit" class="btn btn-primary btn-user btn-block">
                                 Daftar Akun
                             </button>
+                            </div>
                         </form>
                         <hr>
                         <div class="text-center">
