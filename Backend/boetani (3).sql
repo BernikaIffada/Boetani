@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2023 at 05:02 AM
+-- Generation Time: Jun 11, 2023 at 04:31 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.4.16
 
@@ -28,24 +28,23 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `kategori` (
-  `id_kategori` int(10) NOT NULL,
+  `id_kategori` int(11) NOT NULL,
   `nama_kategori` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `postingan`
+-- Dumping data for table `kategori`
 --
 
-CREATE TABLE `postingan` (
-  `kd_postingan` int(10) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `nama_kategori` varchar(25) NOT NULL,
-  `tgl_posting` date NOT NULL,
-  `pertanyaan` varchar(900) NOT NULL,
-  `status` enum('Selesai','Belum Selesai','','') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `kategori` (`id_kategori`, `nama_kategori`) VALUES
+(1, 'Umbi-umbian'),
+(2, 'Padi'),
+(3, 'Tebu'),
+(4, 'Sayur'),
+(5, 'Buah'),
+(6, 'Peralatan Tani'),
+(7, 'Pupuk'),
+(8, 'Benih');
 
 -- --------------------------------------------------------
 
@@ -54,7 +53,7 @@ CREATE TABLE `postingan` (
 --
 
 CREATE TABLE `user` (
-  `id` int(25) NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(128) NOT NULL,
   `email` varchar(128) NOT NULL,
   `password` varchar(256) NOT NULL,
@@ -69,8 +68,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `password`, `image`, `role_id`, `is_active`, `date_created`) VALUES
-(4, 'BERNIKA IRNADIANIS IFFADA', 'bernikaiffada@gmail.com', '$2y$10$reXGdGhbmes.HN5i6.QsKeKzr6a0Ex7Tyr.1l1VzrhiSetTxoEnY6', 'undraw_Mindfulness_8gqa.png', 1, 1, 1685341842),
-(5, 'Intan sari duano', 'intan@gmail.com', '$2y$10$jhGcBmz5HJ3OxQkvuRHDUuToxPZXWG86BO7NtSj.Gnb8UcNNXLpni', 'undraw_Mobile_apps_re_3wjf.png', 2, 1, 1685341977);
+(1, 'Intan sari duano', 'intan.duano@gmail.com', '$2y$10$jhGcBmz5HJ3OxQkvuRHDUuToxPZXWG86BO7NtSj.Gnb8UcNNXLpni', 'undraw_Mobile_apps_re_3wjf.png', 2, 1, 1685341977),
+(2, 'Lukman', 'lukmanullh23@gmail.com', '$2y$10$89Yk2iT1kHr9Rdt3BwtN6u2fz1b.QDCqpHo/qC2wF55Mo0C4ohDj6', 'default.jpg', 2, 1, 1685522858),
+(3, 'BERNIKA IRNADIANIS IFFADA', 'bernikaiffada@gmail.com', '$2y$10$e4TxRUnjkEB8gVW.lE7hlekzmnHt7hjcIounEJcNXFPkr2Ep0gzsm', 'indonesia.png', 1, 1, 1686116388),
+(4, 'Rasyad', 'rasyadamhar2001@gmail.com', '$2y$10$uDI3WsdpaHeLPV7HJu2XROZc1ydAb3Qz7mjmhIGtQNH/Q4NnOFP0S', 'default.jpg', 2, 1, 1686031354),
+(5, 'Zakariya', 'm.zakariya311@gmail.com', '$2y$10$E9DOlAwlnlOg/TCg/ZXSZe6gIdCgVpbrQP6UMGIIQvv6JD2jfxh/a', 'default.jpg', 2, 1, 1686058629),
+(23, 'Martika Isna Lidya', 'titik30martika@gmail.com', '$2y$10$3kGEMpSNYNdKBJkOnQINt.8jsA8vQgRgyT51XMwODnjqKwVdlZUUW', 'indonesia1.png', 2, 1, 1686493756);
 
 -- --------------------------------------------------------
 
@@ -102,17 +105,10 @@ ALTER TABLE `kategori`
   ADD PRIMARY KEY (`id_kategori`);
 
 --
--- Indexes for table `postingan`
---
-ALTER TABLE `postingan`
-  ADD PRIMARY KEY (`kd_postingan`);
-
---
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `user_role`
@@ -128,19 +124,13 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id_kategori` int(10) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `postingan`
---
-ALTER TABLE `postingan`
-  MODIFY `kd_postingan` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `user_role`

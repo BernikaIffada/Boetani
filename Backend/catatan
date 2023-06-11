@@ -1,0 +1,7 @@
+Proyek ini digunakan untuk mengerjakan fitur login, registrasi, ubah profil, ubah password, dan penyedia data yang seharusnya sebagai rest API agar dihubungkan dengan frontend.
+
+Adapun beberapa kendala yang dialami sampai sekarang belum menemukan solusi adalah :
+1. menambah postingan belum diuji coba pada postman
+2. menghapus postingan by id belum dicoba di postman
+
+<-- fitur login, registrasi, ubah profil, ubah password sudah jalan -->

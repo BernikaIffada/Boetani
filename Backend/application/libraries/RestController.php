@@ -1,11 +1,11 @@
 <?php
+//namespace chriskacerguis\RestServer;
 
-namespace chriskacerguis\RestServer;
-
-use Exception;
-use RecursiveArrayIterator;
-use RecursiveIteratorIterator;
-use stdClass;
+//use Exception;
+//use RecursiveArrayIterator;
+//use RecursiveIteratorIterator;
+//use stdClass;
+require APPPATH . 'libraries/Format.php';
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
@@ -160,14 +160,14 @@ class RestController extends \CI_Controller
     /**
      * The start of the response time from the server.
      *
-     * @var number
+     * @var float
      */
     protected $_start_rtime;
 
     /**
      * The end of the response time from the server.
      *
-     * @var number
+     * @var float
      */
     protected $_end_rtime;
 
@@ -1916,7 +1916,8 @@ class RestController extends \CI_Controller
             return false;
         }
 
-        $payload['rtime'] = $this->_end_rtime - $this->_start_rtime;
+        
+        $payload['rtime'] = ($this->_end_rtime - $this->_start_rtime);
 
         return $this->rest->db->update(
             $this->config->item('rest_logs_table'),

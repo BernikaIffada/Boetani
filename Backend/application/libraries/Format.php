@@ -1,8 +1,8 @@
 <?php
 
-namespace chriskacerguis\RestServer;
+//namespace chriskacerguis\RestServer;
 
-use Exception;
+//use Exception;
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
