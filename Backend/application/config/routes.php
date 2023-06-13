@@ -50,8 +50,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
-// $route["detail/(:num)"] = 'pertanyaan/get_detail_question/$1';
-//$routes->post('/pertanyaan/tambah','Pertanyaan::add_pertanyaan');
 $route['default_controller'] = 'auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

@@ -1,15 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Boetani</title>
-</head>
+  </head>
+  <body>
+    <div class="lg:px-[35px] lg:py-0 lg:w-[37%] xl:w-[32%] bg-[#0000004d] 2xl:w-[28%] fixed w-full bg-black top-0 left-0 h-max hidden"></div>
+    <a href="#" id="tocontent" class="absolute -top-40 focus:top-3 left-10 focus:z-[1000] p-6 rounded-xl bg-white font-bold" tabindex="0">Skip to content</a>
+    <!-- header -->
 
-<body>
-    <main> content</main>
-</body>
+    <header id="header" class="p-3 mx-auto sticky top-0 bg-white z-50">
+      <nav class="container mx-auto flex justify-between relative my-1">
+        <a href="/"><img class="w-[93px] md:w-[109px] xl:w-[120px] 2xl:w-[155px]" src="./assets/img/logo-boetani.png" alt="brand.png" /></a>
+        <button class="peer group relative bg-white flex flex-col w-[58px] h-[44px] justify-between m-0 py-[9px] px-[12px] rounded border border-[#872800] shadow-[0_2px_5px_0.2px_#AE4F18] md:hidden">
+          <div class="h-[3px] transition-all duration-[0.4s] origin-[0%_100%] ease-in-out w-full bg-[#872800] rounded group-[.isCollapse]:rotate-[44deg] group-[.isCollapse]:translate-x-[4px]"></div>
+          <div class="h-[3px] transition-all duration-[0.2s] ease-in-out w-full bg-[#872800] rounded group-[.isCollapse]:scale-0"></div>
+          <div class="h-[3px] transition-all duration-[0.4s] origin-[0%_100%] ease-in-out w-full bg-[#872800] rounded group-[.isCollapse]:rotate-[-44deg] group-[.isCollapse]:translate-x-[6px]"></div>
+        </button>
+        <div
+          class="menu_container scale-0 origin-top overflow-hidden box-border absolute bottom-[-180px] w-3/5 right-0 bg-white rounded md:relative md:scale-100 md:bottom-0 md:flex md:flex-row md:justify-between md:rotate-[0deg] md:w-[70%] lg:w-[65%] lg:text-lg xl:text-xl 2xl:text-2xl"
+        >
+          <div class="nav_fix md:flex md:justify-between md:w-[45%] lg:w-[40%]">
+            <a href="/" class="font-['opensans-semibold'] relative rounded-t no-underline text-[#575757] flex items-center px-[15px] py-[8px] w-full border border-[#F6F6F6] md:w-fit md:border-0 isActive">Beranda</a>
+            <a href="#/questions" class="font-['opensans-semibold'] relative no-underline text-[#575757] flex items-center px-[15px] py-[8px] w-full border border-[#F6F6F6] md:w-fit md:border-0">Postingan</a>
 
+          </div>
+
+          <div id="nav_option" class="md:flex md:justify-between md:w-[35%] lg:w-[32%] xl:w-[28%] 2xl:w-[25%]">
+            <a href="#/login" class="font-['opensans-semibold'] relative no-underline text-[#575757] flex items-center px-[15px] py-[8px] w-full border border-[#F6F6F6] md:w-fit md:border-0">Login</a>
+            <a
+              href="#/registration"
+
+              class="font-['opensans-semibold'] relative rounded-b no-underline text-[#575757] flex items-center px-[15px] py-[8px] w-full border border-[#F6F6F6] md:w-fit md:rounded-full md:border-[#AE4F18] md:bg-[#AE4F18] md:px-6 md:text-white"
+              >Register</a>
+
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- header -->
+    <!-- main -->
+    <main id="main" tabindex="0"></main>
+    <!-- main -->
+    <!-- footer -->
+    <footer id="footer" class="bg-[#67815926] mx-auto w-full">
+      <div class="p-3 mx-auto container flex flex-col justify-center items-center">
+        <img src="./assets/img/logo-boetani.png" class="w-[100px] md:w-[118px] xl:w-[130px] 2xl:w-[170px]" alt="brand.jpg" />
+        <span class="mt-[20px] block font-['opensans-semibold'] text-lg text-[#143317] w-[75%] text-justify md:text-center md:w-[76%] lg:w-[60%]"
+          >WADAH TERBAIK UNTUK BELAJAR BERTANI DENGAN FORUM DISKUSI, DAN MENGENAL BUDIDAYA YANG ASRI DENGAN BENAR</span
+        >
+        <div class="mt-[20px] mb-[10px] social flex justify-between items-center flex-col gap-y-4">
+          <!-- email -->
+          <a href="mailto:sib4@dicoding.org" class="flex justify-between items-center bg-white rounded-full px-[15px] py-[5px] order-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-[28px] h-[34px]" width="10" height="9" viewBox="0 0 10 9" fill="none">
+              <path d="M10 1.5C10 0.95 9.55 0.5 9 0.5H1C0.45 0.5 0 0.95 0 1.5V7.5C0 8.05 0.45 8.5 1 8.5H9C9.55 8.5 10 8.05 10 7.5V1.5ZM9 1.5L5 4L1 1.5H9ZM9 7.5H1V2.5L5 5L9 2.5V7.5Z" fill="#143317" />
+            </svg>
+            <span class="block ml-[10px] pl-[10px] text-[#143317] border-l-2 border-[#49644033] py-[4px]">sib4@dicoding.org</span>
+          </a>
+          <div class="flex justify-between items-end gap-x-2 order-0">
+            <!-- linkedin -->
+            <a href="#" class="p-[12px] bg-[#67815999] rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-[20px] h-[20px]" width="10" height="9" viewBox="0 0 10 9" fill="none">
+                <path
+                  d="M2.63605 1.78742C2.63593 2.01949 2.54363 2.242 2.37946 2.40602C2.21528 2.57003 1.99267 2.6621 1.76061 2.66199C1.52855 2.66187 1.30603 2.56957 1.14202 2.4054C0.978007 2.24122 0.885931 2.01861 0.886047 1.78655C0.886164 1.55449 0.978462 1.33197 1.14264 1.16796C1.30681 1.00395 1.52942 0.911871 1.76148 0.911987C1.99355 0.912103 2.21606 1.0044 2.38008 1.16858C2.54409 1.33275 2.63616 1.55536 2.63605 1.78742ZM2.6623 3.30992H0.912297V8.78742H2.6623V3.30992ZM5.4273 3.30992H3.68605V8.78742H5.4098V5.91305C5.4098 4.3118 7.49667 4.16305 7.49667 5.91305V8.78742H9.2248V5.31805C9.2248 2.61867 6.13605 2.7193 5.4098 4.04492L5.4273 3.30992Z"
+                  fill="#496440"
+                /></svg
+            ></a>
+            <!-- email -->
+            <a href="#" class="p-[12px] bg-[#678159] rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-[20px] h-[20px]" width="10" height="8" viewBox="0 0 10 8" fill="none">
+                <path
+                  d="M9.62552 1.22491C9.62552 0.743665 9.23177 0.349915 8.75052 0.349915H1.75052C1.26927 0.349915 0.875519 0.743665 0.875519 1.22491V6.47492C0.875519 6.95616 1.26927 7.34992 1.75052 7.34992H8.75052C9.23177 7.34992 9.62552 6.95616 9.62552 6.47492V1.22491ZM8.75052 1.22491L5.25052 3.41241L1.75052 1.22491H8.75052ZM8.75052 6.47492H1.75052V2.09991L5.25052 4.28741L8.75052 2.09991V6.47492Z"
+                  fill="white"
+                /></svg
+            ></a>
+            <!-- ig -->
+            <a href="#" class="p-[12px] bg-[#678159] rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-[20px] h-[20px]" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path
+                  d="M2.81265 0.474915H6.48765C7.88765 0.474915 9.02515 1.61241 9.02515 3.01241V6.68742C9.02515 7.3604 8.7578 8.00582 8.28193 8.4817C7.80606 8.95757 7.16063 9.22491 6.48765 9.22491H2.81265C1.41265 9.22491 0.275146 8.08741 0.275146 6.68742V3.01241C0.275146 2.33943 0.54249 1.694 1.01836 1.21813C1.49424 0.742258 2.13966 0.474915 2.81265 0.474915ZM2.72515 1.34991C2.30743 1.34991 1.90682 1.51585 1.61145 1.81122C1.31608 2.10659 1.15015 2.5072 1.15015 2.92491V6.77491C1.15015 7.64554 1.85452 8.34991 2.72515 8.34991H6.57515C6.99286 8.34991 7.39347 8.18398 7.68884 7.88861C7.98421 7.59324 8.15015 7.19263 8.15015 6.77491V2.92491C8.15015 2.05429 7.44577 1.34991 6.57515 1.34991H2.72515ZM6.94702 2.00616C7.09206 2.00616 7.23116 2.06378 7.33372 2.16634C7.43628 2.2689 7.4939 2.408 7.4939 2.55304C7.4939 2.69808 7.43628 2.83718 7.33372 2.93974C7.23116 3.0423 7.09206 3.09991 6.94702 3.09991C6.80198 3.09991 6.66288 3.0423 6.56032 2.93974C6.45776 2.83718 6.40015 2.69808 6.40015 2.55304C6.40015 2.408 6.45776 2.2689 6.56032 2.16634C6.66288 2.06378 6.80198 2.00616 6.94702 2.00616ZM4.65015 2.66241C5.23031 2.66241 5.78671 2.89288 6.19694 3.30312C6.60718 3.71335 6.83765 4.26975 6.83765 4.84991C6.83765 5.43008 6.60718 5.98647 6.19694 6.39671C5.78671 6.80695 5.23031 7.03741 4.65015 7.03741C4.06999 7.03741 3.51359 6.80695 3.10335 6.39671C2.69311 5.98647 2.46265 5.43008 2.46265 4.84991C2.46265 4.26975 2.69311 3.71335 3.10335 3.30312C3.51359 2.89288 4.06999 2.66241 4.65015 2.66241ZM4.65015 3.53741C4.30205 3.53741 3.96821 3.6757 3.72207 3.92184C3.47593 4.16798 3.33765 4.50182 3.33765 4.84991C3.33765 5.19801 3.47593 5.53185 3.72207 5.77799C3.96821 6.02413 4.30205 6.16241 4.65015 6.16241C4.99824 6.16241 5.33208 6.02413 5.57822 5.77799C5.82437 5.53185 5.96265 5.19801 5.96265 4.84991C5.96265 4.50182 5.82437 4.16798 5.57822 3.92184C5.33208 3.6757 4.99824 3.53741 4.65015 3.53741Z"
+                  fill="white"
+                /></svg
+            ></a>
+            <!-- github -->
+            <a href="#" class="p-[12px] bg-[#678159] rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-[20px] h-[20px]" width="12" height="11" viewBox="0 0 12 11" fill="none">
+                <path
+                  d="M6.20701 0.118958C5.47818 0.118958 4.75648 0.258242 4.08312 0.528857C3.40976 0.799473 2.79794 1.19612 2.28257 1.69615C1.24174 2.70601 0.657013 4.07568 0.657013 5.50384C0.657013 7.88395 2.24986 9.90328 4.45321 10.6195C4.73071 10.6626 4.81951 10.4956 4.81951 10.3502V9.44018C3.28216 9.76328 2.95471 8.71861 2.95471 8.71861C2.69941 8.09396 2.33866 7.92703 2.33866 7.92703C1.83361 7.59317 2.37751 7.60394 2.37751 7.60394C2.93251 7.64163 3.22666 8.15858 3.22666 8.15858C3.70951 8.97708 4.52536 8.73476 4.84171 8.60553C4.89166 8.25551 5.03596 8.01858 5.19136 7.88395C3.95926 7.74933 2.66611 7.28623 2.66611 5.23459C2.66611 4.63687 2.87701 4.15762 3.23776 3.77529C3.18226 3.64067 2.98801 3.08064 3.29326 2.35368C3.29326 2.35368 3.75946 2.20829 4.81951 2.90294C5.25796 2.78447 5.73526 2.72524 6.20701 2.72524C6.67876 2.72524 7.15606 2.78447 7.59451 2.90294C8.65456 2.20829 9.12076 2.35368 9.12076 2.35368C9.42601 3.08064 9.23176 3.64067 9.17626 3.77529C9.53701 4.15762 9.74791 4.63687 9.74791 5.23459C9.74791 7.29162 8.44921 7.74395 7.21156 7.87857C7.41136 8.0455 7.59451 8.37398 7.59451 8.87477V10.3502C7.59451 10.4956 7.68331 10.6679 7.96636 10.6195C10.1697 9.8979 11.757 7.88395 11.757 5.50384C11.757 4.79668 11.6135 4.09646 11.3345 3.44313C11.0556 2.78981 10.6468 2.19618 10.1315 1.69615C9.61609 1.19612 9.00426 0.799473 8.33091 0.528857C7.65755 0.258242 6.93585 0.118958 6.20701 0.118958Z"
+                  fill="white"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <span class="block bg-[#678159] text-white text-center font-['opensans-bold'] text-[8px] py-[2px] md:text-[12px]">BOETANI © 2023</span>
+    </footer>
+    <!-- footer -->
+  </body>
 </html>

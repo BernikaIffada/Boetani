@@ -94,6 +94,7 @@ class Auth extends CI_Controller
         }
     }
 
+
     public function changePassword() {
 
         if(!$this->session->userdata('reset_email')) {
@@ -123,6 +124,7 @@ class Auth extends CI_Controller
         }
     }
 
+
     public function logout()
     {
         $this->session->unset_userdata('email');
@@ -132,3 +134,4 @@ class Auth extends CI_Controller
         redirect('auth');
     }
 }
+
