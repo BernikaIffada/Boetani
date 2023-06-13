@@ -8,6 +8,7 @@ class Auth extends CI_Controller
         parent::__construct();
         $this->load->library('form_validation');
     }
+    
     public function index()
     {
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
