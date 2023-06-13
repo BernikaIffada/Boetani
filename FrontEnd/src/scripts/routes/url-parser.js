@@ -4,6 +4,11 @@ const UrlParser = {
     return hash;
   },
 
+  _getHashWithParams(path) {
+    const hash = path.hash.slice(1).toLowerCase();
+    return hash;
+  },
+
   parseActiveUrlWithCombiner() {
     const url = this._getHash();
     const splitedUrl = this._urlSplitter(url);
@@ -12,6 +17,11 @@ const UrlParser = {
 
   parseActiveUrlWithoutCombiner() {
     const url = this._getHash();
+    return this._urlSplitter(url);
+  },
+
+  parseActiveUrlWithoutCombinerWithParams(path) {
+    const url = this._getHash(path);
     return this._urlSplitter(url);
   },
 

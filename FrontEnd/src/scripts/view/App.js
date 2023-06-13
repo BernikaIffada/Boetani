@@ -2,6 +2,8 @@ import anime from "animejs";
 import UrlParser from "../routes/url-parser.js";
 import routing from "../routes/route.js";
 import $ from "jquery";
+import helper from "../helper.js";
+
 
 export default class App {
   constructor({ header, main, footer }) {
@@ -9,9 +11,7 @@ export default class App {
     this.main = main;
     this.footer = footer;
 
-    // drawer transition mobile
-    $("nav > button").click(function () {
-      $(this).toggleClass("isCollapse");
+    function menuHandler(elem) {
       const drawer = $("nav > button ~ div")[0];
       const drawerOptions = {
         targets: drawer,
@@ -20,7 +20,7 @@ export default class App {
         scale: 1,
       };
 
-      if (this.classList.contains("isCollapse")) {
+      if (elem.classList.contains("isCollapse")) {
         drawer.style.display = "flex";
         drawer.style.flexDirection = "column";
         anime({
@@ -35,6 +35,29 @@ export default class App {
         setTimeout(() => {
           drawer.style.display = "none";
         }, 410);
+      }
+    }
+
+    // drawer transition mobile
+    $("nav > button").click(function () {
+      $(this).toggleClass("isCollapse");
+    });
+
+    // listen class
+    helper.addClassNameListener($("nav>button")[0], menuHandler);
+
+    // skip link listener
+    $("#tocontent").click((ev) => {
+      ev.preventDefault();
+      // console.log($("#main").children("*[tabindex='0']"));
+      $("#main").focus();
+    });
+
+    $(window).scroll(() => {
+      if ($(window).scrollTop() >= 60) {
+        $("header").addClass("scrolled");
+      } else {
+        $("header").removeClass("scrolled");
       }
     });
 
@@ -59,7 +82,9 @@ export default class App {
     const page = routing(url.resource ? url.resource : "/");
 
     if (page) {
-      page.index({ root: this.main, currentURL: url });
+      if (page.hasOwnProperty("index")) {
+        page.index({ root: this.main, currentURL: url });
+      }
     } else {
       window.location = "/#/404";
     }
