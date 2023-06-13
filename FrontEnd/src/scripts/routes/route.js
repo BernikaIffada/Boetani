@@ -69,10 +69,12 @@ function routing(url = 404) {
     return undefined;
   }
 
+
   const urlLandingIgnore = ["/", "modalalertlogin", "login"];
   if (!urlLandingIgnore.includes(url)) {
     $("body").removeClass("landing_session");
   }
+
 
   // remove collapse navbar if change page
   $("nav > button").removeClass("isCollapse");

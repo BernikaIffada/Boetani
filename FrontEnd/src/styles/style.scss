@@ -3,6 +3,46 @@
 @tailwind utilities;
 @import url(./fonts.css);
 
+html {
+  scroll-behavior: smooth;
+}
+
+body,
+* {
+  font-family: "opensans-regular", sans-serif;
+}
+
+body.modal_open {
+  overflow-y: hidden;
+}
+
+header {
+  transition: 250ms ease-in-out;
+}
+
+header.scrolled {
+  background-color: white !important;
+}
+
+
+// nav style custom
+nav {
+  a.isActive {
+    border-color: #872800;
+    border-radius: 4px;
+  }
+
+  button.isCollapse {
+    background-color: #872800;
+  }
+
+  button.isCollapse {
+    div {
+      background-color: white;
+    }
+  }
+}
+
 // mixin
 @mixin justify-items-center {
   @apply flex;
@@ -150,6 +190,7 @@
   @apply p-1;
   @include justify-items-center;
 }
+
 
 @mixin form_commentar {
   @apply p-4;
@@ -587,7 +628,6 @@ svg.background_landing {
       @apply md:rounded-none;
       @apply md:shadow-none;
       transition: 300ms ease-in-out;
-
       &:nth-of-type(2) {
         @apply md:border-x-[5px];
         @apply md:border-[#49644033];
@@ -1136,6 +1176,7 @@ svg.background_landing {
     }
   }
 }
+
 
 // modal must login
 #modal_alert_login {

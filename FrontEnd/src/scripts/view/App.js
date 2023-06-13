@@ -4,6 +4,7 @@ import routing from "../routes/route.js";
 import $ from "jquery";
 import helper from "../helper.js";
 
+
 export default class App {
   constructor({ header, main, footer }) {
     this.header = header;
@@ -44,6 +45,21 @@ export default class App {
 
     // listen class
     helper.addClassNameListener($("nav>button")[0], menuHandler);
+
+    // skip link listener
+    $("#tocontent").click((ev) => {
+      ev.preventDefault();
+      // console.log($("#main").children("*[tabindex='0']"));
+      $("#main").focus();
+    });
+
+    $(window).scroll(() => {
+      if ($(window).scrollTop() >= 60) {
+        $("header").addClass("scrolled");
+      } else {
+        $("header").removeClass("scrolled");
+      }
+    });
 
     // skip link listener
     $("#tocontent").click((ev) => {

@@ -48,6 +48,7 @@ const login = {
     $("#modal_login .button_group > a").click(this.hiddenModal);
     $("#modal_login .button_group > input[type='submit']").click(this.loginuser);
 
+
     // back history url
     const prevUrl = sessionStorage.getItem("urlPrev");
     helper.modifyUrl("This page", prevUrl);

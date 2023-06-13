@@ -9,6 +9,7 @@ import "./view/components/question-card";
 import "./view/components/notification-card";
 import "./view/components/comment";
 
+
 $(document).ready(() => {
   // init app
   const app = new App({
