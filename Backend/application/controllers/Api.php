@@ -10,7 +10,7 @@ class Api extends RestController
   {
     // Construct the parent class
     parent::__construct();
-    $this->load->model('M_Pertanyaan');
+    $this->load->model('PertanyaanModel');
     $this->load->model('JawabanModel');
     $this->load->model('BalasanModel');
   }
@@ -35,11 +35,19 @@ class Api extends RestController
   {
     // getting id
     $id = 0;
+    $notFound = false;
     while ($id >= 0) {
       if ($this->hashId($id) === $hash) {
         break;
+      }else if($id >= 99999){
+       $notFound = true;
+       break;
       }
       $id++;
+    }
+
+    if($notFound){
+      throw new Exception("Not Found");
     }
 
     return $id;
@@ -48,7 +56,7 @@ class Api extends RestController
   // method untuk menampilkan semua pertanyaan 
   public function getAllPertanyaanResponse()
   {
-    $pertanyaan = $this->M_Pertanyaan->all_pertanyaan();
+    $pertanyaan = $this->PertanyaanModel->all_pertanyaan();
     $pertanyaanIds = []; // [ { id_pertanyaan: 1 }, { id_pertanyaan: 2 } ]
 
     // get id pertanyaan and user name 
@@ -56,7 +64,7 @@ class Api extends RestController
       array_push($pertanyaanIds, $p->id_pertanyaan);
 
       //   get user
-      $user = $this->getUserById($p->id);
+      $user = $this->getUserById($p->id_user);
       $p->user_name = $user->name;
       $pertanyaan[$index] = $p;
     }
@@ -112,13 +120,31 @@ class Api extends RestController
   {
 
     // getting id
-    $id = $this->getIdByHash($hash);
+    try{
+      $id = $this->getIdByHash($hash);
+    }catch(Exception $e){
+      return $this->response([
+        "status" => "Fail",
+        "error" => "true",
+        "message" => "Not found",
+      ], 404);
+    }
+    
 
     // getting pertanyan by id
-    $pertanyaan = $this->M_Pertanyaan->pertanyaanById($id)[0];
-
+    try{
+      $pertanyaan = $this->PertanyaanModel->pertanyaanById($id)[0];
+    }catch(Exception $e){
+      return $this->response([
+        "status" => "Fail",
+        "error" => "true",
+        "massege" => "Question not found",
+      ], 404);
+    }
+    
+    
     // get user
-    $user = $this->getUserById($pertanyaan->id);
+    $user = $this->getUserById($pertanyaan->id_user);
     $pertanyaan->user_name = $user->name;
 
     // getting jawaban by id_pertanyaan
@@ -129,7 +155,7 @@ class Api extends RestController
       $balasans = $this->BalasanModel->listByIdJawaban($jawaban->id_jawaban);
 
       // get user
-      $user = $this->getUserById($jawaban->id);
+      $user = $this->getUserById($jawaban->id_user);
       $jawaban->user_name = $user->name;
       $jawabans[$index] = $jawaban;
 
@@ -139,7 +165,7 @@ class Api extends RestController
       if (count($balasans) !== 0) {
         // get user
         foreach ($balasans as $index => $balasan) {
-          $user = $this->getUserById($balasan->id);
+          $user = $this->getUserById($balasan->id_user);
           $balasan->user_name = $user->name;
           $balasans[$index] = $balasan;
         }
@@ -164,7 +190,7 @@ class Api extends RestController
       $pertanyaan->jawabans = $jawabans;
     }
     return $this->response([
-      "status" => "success",
+      "status" => "Success",
       "error" => "false",
       "pertanyaan" => $pertanyaan,
     ], 200);
@@ -212,19 +238,52 @@ class Api extends RestController
   public function pertanyaan_post()
   {
     $query = $this->query("action");
+    // storing
     if ($query) {
       if ($query === "add") {
-    // lakuin nambah pertanyaan
-        $pertanyaan = array(
-          'judul' => $this->post('judul'),
-          'id_kategori' => $this->post('id_kategori'),
-          'isi' => $this->post('isi'),
-          'image' => $this->post('image'),
-          'id_kategori' => $this->post('id_kategori')
-        )
+        // get body request
+        $pertanyaan = $this->post("pertanyaan");
+
+        // validating
+        $wouldHave = ["judul","isi","id_user","id_kategori","image"] ;
+        $isValidate = true;
+        foreach ($wouldHave as $key) {
+          if(!array_key_exists($key,$pertanyaan)){
+            $response = [
+              "data" => [
+                "status" => "Fail",
+                "error" => "true",
+                "message" => "Object question doesn't have '$key' property"
+              ],
+              "statusCode" => 400
+            ];
+            $isValidate = false;
+          }
+        }
         
-        $pertanyaan = $this->M_Pertanyaan->add_pertanyaan($data);
-        $this->response(["status" => "oke", "message" => "Pertanyaan berhasil diposting", "action" => $query], 200);
+        // storing
+        if($isValidate){
+          try{
+            $this->PertanyaanModel->add_pertanyaan($pertanyaan);
+            $response = [
+              "data" => [
+                "status" => "Success",
+                "error" => "false",
+                "question" => $this->PertanyaanModel->newest_pertanyaan()
+              ],
+              "statusCode" => 201
+            ];
+          }catch(Exception $e){
+            $response = [
+              "data" => [
+                "status" => "Fail",
+                "error" => "true",
+                "message" => "You must login or categori selected is unregisted"
+              ],
+              "statusCode" => 401
+            ];
+          }
+        }
       }/*
         else if($query === "edit"){
           // lakukin edit
@@ -233,29 +292,117 @@ class Api extends RestController
         }
       */
        else {
-        $this->response(["status" => "Fail", "error" => "true", "message" => "This $query action is not the 'action'"], 400);
+        $response = [
+          "data" => [
+            "status" => "Fail",
+            "error" => "true",
+            "message" => "This $query action is not the 'action'"
+          ],
+          "statusCode" => 400
+        ];
       }
     } else {
-      $this->response(["status" => "Fail", "error" => "true", "message" => "This URL and method is no action"], 400);
+      $response = [
+        "data" => [
+          "status" => "Fail",
+          "error" => "true",
+          "message" => "This URL and method is no action"
+        ],
+        "statusCode" => 400
+      ];
     }
+
+    // upvoting
+
+
+    $this->response($response["data"], $response["statusCode"]);
   }
 
-  // menghapus pertanyaan
-  public function pertanyaan_delete($id) {
-    $deleted = $this->M_Pertanyaan->delete_pertanyaan($id);
+  // update pertanyaan handler
+  public function pertanyaan_put(){
+    $idHash = $this->get('id');
+    $query = $this->query("action");
 
-    if ($deleted) {
-      $this->response(array('status' => 'success', 'message' => 'Pertanyaan berhasil dihapus'), 200);
+    if (!($idHash === null)) {
+      // cek apakah hash nya berhasil di convert tidak 
+      // jika ditemukan maka lanjutkan
+      try{
+        $id = $this->getIdByHash($idHash);
+        if($query){
+          if($query === "upvote"){
+            
+            $response = [
+              "data" => [
+                "status" => "Success",
+                "error" => "false",
+                "message" => "This is upvote action"
+              ],
+              "statusCode" => 200
+            ];
+          }else if($query === "downvote"){
+
+            $response = [
+              "data" => [
+                "status" => "Success",
+                "error" => "false",
+                "message" => "This is downvote action"
+              ],
+              "statusCode" => 200
+            ];
+          }else{
+            $response = [
+              "data" => [
+                "status" => "Fail",
+                "error" => "true",
+                "message" => "This $query action is not the 'action'"
+              ],
+              "statusCode" => 400
+            ];
+          }
+        }else{
+          $response = [
+            "data" => [
+              "status" => "Fail",
+              "error" => "true",
+              "message" => "This URL and method is no action"
+            ],
+            "statusCode" => 400
+          ];
+        }
+      }
+        // jika tidak jalankan ini
+      catch(Exception $e){
+        $response = [
+          "data" => [
+            "status" => "Fail",
+            "error" => "true",
+            "message" => "Id not found"
+          ],
+          "statusCode" => 404
+        ];
+      }
     } else {
-      $this->response(array('status' => 'error', 'message' => 'Postingan gagal dihapus'), 500);
+      $response = [
+        "data" => [
+          "status" => "Fail",
+          "error" => "true",
+          "message" => "Not have id"
+        ],
+        "statusCode" => 400
+      ];
     }
+
+    $this->response($response["data"], $response["statusCode"]);
   }
+
+
 }
 
 /*
   done : 
     localhost/boetani/api/pertanyaan
-    localhost/boetani/api/pertanyaan/id/<hash>
+    localhost/boetani/api/pertanyaan/id/<hash> (get)
     localhost/boetani/api/user/id/1
+    localhost/boetani/api/pertanyaan/id/<hash>?action=upvote
     localhost/boetani/api/pertanyaan?action=add
  */
