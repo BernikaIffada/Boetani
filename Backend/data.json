@@ -1,0 +1,63 @@
+{
+    "section": "Post from User",
+    "members": [{
+            "questionId": 1,
+            "userId": 1,
+            "name": "Bernika",
+            "createdAt": "May 31, 2023, 10:12:29 AM",
+            "questionTitle": "Menanam ubi yang baik pada dataran tinggi",
+            "questionDesc": "Halo kak... Jadi saya kemarin lagi coba menanam ubi tapi saya tinggal di dataran tinggi. Apakah akan berpengaruh pada perkembangan tanaman saya? terima kasih :D",
+            "images": "https://img.freepik.com/free-photo/man-holding-parsnip-harvest_23-2148253315.jpg?w=826&t=st=1685416688~exp=1685417288~hmac=bd4d725795bcdb79ddb44428e6a45a87de842bd9156458e73e2de2be41e17eea",
+            "source": "pertanian.go.id",
+            "hashtag": [
+                "dataran-tinggi",
+                "tanaman-ubi"
+            ],
+            "answer": "Hai kak! Ubi merupakan salah satu tanaman yang bisa ditanam pada dataran rendah sampai dataran tinggi. Cara menanam ubi yang baik, yaitu dengan mengecek iklim yang ada pada daerah dengan suhu 21-27 derajat C, lalu sediakan media tanam yang baik, dan pada dataran tinggi cocok ditanam dengan ketinggian 1.000 mdpl yaa..."
+        },
+        {
+            "questionId": 2,
+            "userId": 2,
+            "name": "Intan",
+            "createdAt": "Oct 27, 2022, 12:20:20 PM",
+            "questionTitle": "Pohon pisang tidak berbuah selama 1 tahun",
+            "questionDesc": "Kenapa yaa pohon pisang di rumah kakek saya tidak berbuah? kurang lebih dari 1 tahun kemarin. apa ada tahapan tertentu yang dilewatkan? mohon jawabannya, makasih",
+            "images": "https://img.freepik.com/free-photo/banana-trees-growing-stone-wall_1353-65.jpg?w=826&t=st=1685416735~exp=1685417335~hmac=fc8fc181dcbfbf82ab2945f18cfd6920677464e46cea8a17477c01f0469a64c3",
+            "source": "pasuruankab.go.id",
+            "hashtag": [
+                "pohon-pisang",
+                "tidak-berbuah"
+            ],
+            "answer": "Setau saya ni bro, masa panen pisang butuh sekitar 8-9 bulan masa tanam. Kalo pada jenis pisang lokal butuh sekitar waktu 1 - 1.5 tahun. Jadi kemungkinan yang ditanam oleh kakekmu itu pisang jenis lokal, yang sebentar lagi akan panen."
+        },
+        {
+            "questionId": 3,
+            "userId": 3,
+            "name": "Lukman",
+            "createdAt": "Jan 29, 2023, 09:14:20 AM",
+            "questionTitle": "Menanam Padi di dalam polybag",
+            "questionDesc": "Apa saja keuntungan dan manfaat menanam padi di dalam polybag?",
+            "images": "https://img.freepik.com/free-photo/different-types-grains-beans-groceries-bags-market_23-2148209841.jpg?w=826&t=st=1685416791~exp=1685417391~hmac=33ad61c8ee989463e260c5f56fb752c9ea7f4858e4cc7597ecb3e49d03d89f81",
+            "source": "quizizz.com, brin.go.id",
+            "hashtag": [
+                "polybag",
+                "padi"
+            ],
+            "answer": "Halo kak. Penggunaan polybag dalam budidaya padi, salah satunya memberi keuntungan karena mengurangi ketergantungan terhadap musim. Baik terhadap musim hujan yang biasanya merendam lahan gambut maupun kemarau yang berpotensi kekurangan air atau kebakaran."
+        },
+        {
+            "questionId": 4,
+            "userId": 4,
+            "name": "Rasyad",
+            "createdAt": "Jun 5, 2023, 06:10:05 AM",
+            "questionTitle": "Alat membajak sawah",
+            "questionDesc": "Apa saja alat yang dibawa petani untuk membajak sawah",
+            "images": "https://img.freepik.com/free-photo/still-life-with-gardening-concept_23-2148127837.jpg?w=360&t=st=1685416845~exp=1685417445~hmac=b105fac26420daf6652d4b965af1f66e5fb649cf24f56d5b7850710863cae7a1",
+            "source": "brainly, faperta.umsu.ac.id",
+            "hashtag": [
+                "alat-membajak-sawah"
+            ],
+            "answer": "Biasanya yang digunakan yaitu mesin tanam, mesin penebar pupuk, penyemprot air, penutup tanah, mesin pemanen, dan masih banyak lagi tergantung kebutuhan petani :)"
+        }
+    ]
+}
