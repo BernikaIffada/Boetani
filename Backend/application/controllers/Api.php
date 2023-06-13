@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-require APPPATH . 'libraries/RESTController.php';
+require APPPATH . 'libraries/RestController.php';
 
 class Api extends RestController
 {
