@@ -18,3 +18,7 @@
   font-family: "opensans-extrabold";
   src: url(../assets/fonts/open_sans/openSans-extraBold.ttf);
 }
+@font-face {
+  font-family: "opensans-italic";
+  src: url(../assets/fonts/open_sans/openSans-italic.ttf);
+}

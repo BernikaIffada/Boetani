@@ -49,8 +49,6 @@ class questioncard extends HTMLElement {
         </a>
     `;
 
-    console.log(this.categories);
-
     $(this).html(html);
   }
 }

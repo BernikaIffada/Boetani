@@ -42,6 +42,9 @@ const question = {
         </section>
     `;
     $(root).html(html);
+    if ($(window).width() >= 768) {
+      $("#postingan_page > .title").remove();
+    }
   },
 };
 

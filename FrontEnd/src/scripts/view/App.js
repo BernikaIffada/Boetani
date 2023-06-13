@@ -66,7 +66,9 @@ export default class App {
     const page = routing(url.resource ? url.resource : "/");
 
     if (page) {
-      page.index({ root: this.main, currentURL: url });
+      if (page.hasOwnProperty("index")) {
+        page.index({ root: this.main, currentURL: url });
+      }
     } else {
       window.location = "/#/404";
     }
