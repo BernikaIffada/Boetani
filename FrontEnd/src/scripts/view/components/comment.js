@@ -3,6 +3,9 @@ import commentSVG from "../../../template/comment-svg.html";
 import upvoteSVG from "../../../template/upvote-svg.html";
 import downvoteSVG from "../../../template/downvote-svg.html";
 import addFotoSVG from "../../../template/addFoto-svg.html";
+import Auth from "../../routes/middleware";
+import helper from "../../helper";
+import modalAlertLogin from "../modal/alert-login";
 
 class Comment extends HTMLElement {
   connectedCallback() {
@@ -51,9 +54,19 @@ class Comment extends HTMLElement {
 
   commentFormTrigger(ev) {
     ev.preventDefault();
+    const user = Auth.index();
+
+    if (!user) {
+      const prevUrl = sessionStorage.getItem("urlPrev");
+      helper.modifyUrl("This page", prevUrl);
+      // return modal alert login
+      modalAlertLogin.index({ root: document.getElementById("main") });
+      return 0;
+    }
+
     const form_comment = `
     <div class="form_comment collapsing">
-      <span class="user">rasyad</span>
+      <span class="user">${user.name || ""}</span>
       <form id="addcomment">
         <input type="text" name="id_comment" id="id_comment" value="${this.idComment}" hidden/>
         <div class="input_group">
@@ -110,8 +123,6 @@ class Comment extends HTMLElement {
         $(`comment-card[data-id="${this.idComment}"] > .form_comment`).remove();
       }, 310);
     }
-
-    this.#afterRender();
   }
 
   render() {
@@ -175,6 +186,7 @@ class Comment extends HTMLElement {
     // binding
     this.sendComment = this.sendComment.bind(this);
     // handler
+    $(`comment-card[data-id='${this.idComment}'] > .action> #comment`).off("click");
     $(`comment-card[data-id='${this.idComment}'] > .action> #comment`).click(this.commentFormTrigger);
     $("#addcomment input[type='submit']").click(this.sendComment);
   }
@@ -185,7 +197,7 @@ class Comment extends HTMLElement {
     const textAreaInputVal = $("#addcomment textarea#com_input").val();
     const newChildThis = {
       id: this.idComment,
-      author: JSON.parse(localStorage.getItem("user")),
+      author: Auth.index(),
       comment: textAreaInputVal,
     };
 

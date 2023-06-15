@@ -1,5 +1,6 @@
 import $ from "jquery";
 import helper from "../../helper";
+import Auth from "../../routes/middleware";
 const login = {
   show(root) {
     $("body").addClass("modal_open");
@@ -48,7 +49,6 @@ const login = {
     $("#modal_login .button_group > a").click(this.hiddenModal);
     $("#modal_login .button_group > input[type='submit']").click(this.loginuser);
 
-
     // back history url
     const prevUrl = sessionStorage.getItem("urlPrev");
     helper.modifyUrl("This page", prevUrl);
@@ -83,22 +83,30 @@ const login = {
   },
 
   hiddenModal(event) {
-    if (event.target === event.currentTarget) {
+    if (event === null) {
+      $("body").removeClass("modal_open");
+      $("#modal_login").remove();
+    } else if (event.target === event.currentTarget) {
       $("body").removeClass("modal_open");
       $("#modal_login").remove();
     }
   },
 
-  loginuser() {
-    let inputVal = [];
+  async loginuser() {
+    let inputVal = {};
     const inputElem = $("#modal_login  .input_group > input");
     inputElem.each((index, elem) => {
-      const obj = {};
-      obj[elem.name] = elem.value;
-      inputVal.push(obj);
+      inputVal[elem.name] = elem.value;
     });
 
     // todo login
+    const response = await Auth.login(inputVal);
+    if (response.error === "true") {
+      login.hiddenModal(null);
+      alert(response.msg);
+    } else {
+      window.location = "/";
+    }
   },
 };
 

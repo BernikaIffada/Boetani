@@ -1091,15 +1091,20 @@ svg.background_landing {
           .author_date {
             @apply flex;
             @apply justify-between;
-            @apply items-center;
+            @apply items-start;
 
             .author {
+              overflow: hidden;
               @apply text-lg;
               font-family: "opensans-semibold", sans-serif;
+              max-height: 56px;
+              min-height: 56px;
+              width: 67%;
             }
 
             .date {
               font-family: "opensans-italic", sans-serif;
+              @apply h-fit;
             }
           }
           > * {
@@ -1110,9 +1115,13 @@ svg.background_landing {
             font-family: "opensans-bold", sans-serif;
             @apply my-2;
             @apply text-lg;
+            overflow: hidden;
+            max-height: 56px;
+            min-height: 56px;
           }
           > .summary {
             text-align: justify;
+            min-height: 192px;
           }
           > img {
             @apply my-1;
@@ -1472,7 +1481,7 @@ notification-card {
         @apply flex;
         @apply justify-between;
         @apply items-center;
-        @apply md:w-fit;
+        @apply md:w-[100%];
         @apply md:order-2;
         @apply md:items-start;
         @apply md:my-2;
@@ -1483,9 +1492,11 @@ notification-card {
           @apply text-lg;
           @apply md:text-xl;
           font-family: "opensans-semibold", sans-serif;
+          text-align: center;
         }
 
         .date {
+          @include justify-items-center();
           @apply md:text-sm;
           @apply md:w-fit;
           @apply md:text-center;
@@ -1495,6 +1506,14 @@ notification-card {
           @apply md:py-1;
           font-family: "opensans-italic", sans-serif;
         }
+
+        > div {
+          @apply md:max-w-[120px];
+          @apply md:flex;
+          @apply md:flex-col;
+          @apply md:justify-center;
+          @apply md:items-center;
+        }
       }
 
       .title {
@@ -1503,9 +1522,11 @@ notification-card {
         @apply text-lg;
         @apply lg:text-xl;
         @apply xl:text-2xl;
+        @apply md:w-[70%];
       }
       .description {
-        @apply md:w-[85%];
+        @apply md:w-fit;
+        @apply md:max-w-[85%];
         @apply md:px-4;
         @apply md:py-2;
         text-align: justify;
@@ -2221,7 +2242,7 @@ comment-card {
     a::before {
       content: "";
       position: absolute;
-      bottom: 8px;
+      bottom: 2px;
       width: 30%;
       height: 3px;
       background-color: #143317;

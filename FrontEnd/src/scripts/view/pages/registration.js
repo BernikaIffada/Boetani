@@ -1,4 +1,5 @@
 import $ from "jquery";
+import Auth from "../../routes/middleware";
 const registration = {
   index({ root }) {
     $("nav .menu_container a").removeClass("isActive");
@@ -40,6 +41,25 @@ const registration = {
 
     // add listener
     $(".input_group button[data-action='toggle_visibility_password']").click(this.toggleVisibilityPassword);
+    $("#registration_page input[type='submit']").click(this.sendRegistration);
+  },
+
+  async sendRegistration(ev) {
+    let inputVal = {};
+    const inputElem = $("#registration_page  .input_group > input");
+    inputElem.each((index, elem) => {
+      inputVal[elem.name] = elem.value;
+      elem.value = "";
+    });
+
+    // todo registration
+    const response = await Auth.registration(inputVal);
+    if (response.error === "true") {
+      alert(response.msg);
+    } else {
+      alert(response.msg);
+      window.location = "/#/login";
+    }
   },
   toggleVisibilityPassword() {
     const passwordField = $(this).parent().find("input");

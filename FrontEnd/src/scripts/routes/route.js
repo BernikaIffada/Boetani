@@ -28,7 +28,7 @@ const route = {
   questions: questions,
   detail: detail,
   needAuth: {
-    // addposting: posting,
+    addposting: posting,
     profile: profile,
     notification: notification,
     comment: comment,

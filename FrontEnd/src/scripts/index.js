@@ -2,13 +2,13 @@ import "regenerator-runtime";
 import $ from "jquery";
 import "../styles/style.scss";
 import App from "./view/App.js";
+import Auth from "../scripts/routes/middleware";
 
 // registry custom element
 import "./view/components/dev-member-card";
 import "./view/components/question-card";
 import "./view/components/notification-card";
 import "./view/components/comment";
-
 
 $(document).ready(() => {
   // init app
@@ -27,5 +27,15 @@ $(document).ready(() => {
     app.renderPage();
   });
 
-  localStorage.setItem("user", JSON.stringify({ id: "rasyad" }));
+  setInterval(() => {
+    const user = Auth.index();
+    if (user) {
+      if (Date.now() >= user.expired) {
+        localStorage.removeItem("user");
+        setTimeout(() => {
+          window.location = "/";
+        }, 500);
+      }
+    }
+  }, 2000);
 });

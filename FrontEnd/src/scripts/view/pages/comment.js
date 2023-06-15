@@ -1,5 +1,5 @@
 const comment = {
-  index({ currentURL, root }) {
+  index({ currentURL }) {
     console.log(currentURL);
   },
 };

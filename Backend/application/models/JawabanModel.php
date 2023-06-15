@@ -27,7 +27,7 @@ class JawabanModel extends CI_Model
 
     public function listByIdPertanyaan($id_pertanyaan)
     {
-        return $this->db->get_where("jawaban", "id_pertanyaan = $id_pertanyaan")->result();
+        return $this->db->get_where("jawaban","id_pertanyaan = '$id_pertanyaan'")->result_object();
     }
 
     // public function listById($id_pertanyaan)
