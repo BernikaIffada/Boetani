@@ -1,6 +1,6 @@
 export default {
   index() {
-    const userJSON = sessionStorage.getItem("user");
+    const userJSON = localStorage.getItem("user");
     const user = userJSON ? JSON.parse(userJSON) : null;
     console.log(user);
     return user;
@@ -10,7 +10,7 @@ export default {
     const response = user;
 
     if (response) {
-      sessionStorage.setItem("user", JSON.stringify(response));
+      localStorage.setItem("user", JSON.stringify(response));
       return this.index();
     }
 

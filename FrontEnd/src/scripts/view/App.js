@@ -4,6 +4,7 @@ import routing from "../routes/route.js";
 import $ from "jquery";
 import helper from "../helper.js";
 
+
 export default class App {
   constructor({ header, main, footer }) {
     this.header = header;
@@ -59,6 +60,21 @@ export default class App {
         $("header").removeClass("scrolled");
       }
     });
+
+    // skip link listener
+    $("#tocontent").click((ev) => {
+      ev.preventDefault();
+      // console.log($("#main").children("*[tabindex='0']"));
+      $("#main").focus();
+    });
+
+    $(window).scroll(() => {
+      if ($(window).scrollTop() >= 60) {
+        $("header").addClass("scrolled");
+      } else {
+        $("header").removeClass("scrolled");
+      }
+    });
   }
 
   renderPage() {
@@ -66,7 +82,9 @@ export default class App {
     const page = routing(url.resource ? url.resource : "/");
 
     if (page) {
-      page.index({ root: this.main, currentURL: url });
+      if (page.hasOwnProperty("index")) {
+        page.index({ root: this.main, currentURL: url });
+      }
     } else {
       window.location = "/#/404";
     }

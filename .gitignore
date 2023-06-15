@@ -1,6 +1,4 @@
 .DS_Store
-node_modules
-=======
 
 node_modules
 application/cache/*
@@ -33,5 +31,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 *.sublime-project
 /tests/tests/
 /tests/results/
-=======
 

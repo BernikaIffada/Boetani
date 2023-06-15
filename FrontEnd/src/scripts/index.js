@@ -1,12 +1,15 @@
 import "regenerator-runtime";
 import $ from "jquery";
-// import "../styles/posting-view.scss";
+// import "../styles/posting-view.scss"; 
 import "../styles/style.scss";
 import App from "./view/App.js";
 
 // registry custom element
 import "./view/components/dev-member-card";
 import "./view/components/question-card";
+import "./view/components/notification-card";
+import "./view/components/comment";
+
 
 $(document).ready(() => {
   // init app
@@ -25,5 +28,5 @@ $(document).ready(() => {
     app.renderPage();
   });
 
-  // sessionStorage.setItem("user", JSON.stringify({ id: "rasyad" }));
+  localStorage.setItem("user", JSON.stringify({ id: "rasyad" }));
 });

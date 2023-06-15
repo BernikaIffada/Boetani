@@ -1,3 +1,4 @@
+import UrlParser from "./url-parser";
 import auth from "./middleware";
 import landing from "../view/pages/landing";
 import notFound from "../view/pages/notFound";
@@ -6,15 +7,17 @@ import modalAlertLogin from "../view/modal/alert-login";
 import registration from "../view/pages/registration";
 import questions from "../view/pages/questions";
 import posting from "../view/pages/posting";
+import comment from "../view/pages/comment";
+import detail from "../view/pages/detail";
 import profile from "../view/pages/profile";
+import notification from "../view/modal/notification";
 import helper from "../helper";
 import notificationSVG from "../../template/notification-svg.html";
 
 import $ from "jquery";
 
-
 function logout() {
-  sessionStorage.removeItem("user");
+  localStorage.removeItem("user");
   location = "/";
 }
 
@@ -22,13 +25,24 @@ function logout() {
 const route = {
   "/": landing,
   404: notFound,
-  login: modalLogin,
-  registration: registration,
   questions: questions,
+<<<<<<< HEAD
   
+=======
+  detail: detail,
+>>>>>>> 63673ab0372fb73ca6ee653eb1957d06a7a17d28
   needAuth: {
     profile: profile,
+<<<<<<< HEAD
     addposting: posting,
+=======
+    notification: notification,
+    comment: comment,
+  },
+  dontAuth: {
+    registration: registration,
+    login: modalLogin,
+>>>>>>> 63673ab0372fb73ca6ee653eb1957d06a7a17d28
   },
 };
 
@@ -59,7 +73,7 @@ function routing(url = 404) {
 
   if (url === "logout") {
     logout();
-    return undefined;
+    return landing;
   }
 
   const urlLandingIgnore = ["/", "modalalertlogin", "login"];
@@ -84,8 +98,29 @@ function routing(url = 404) {
     }
   }
 
+  // routing url don't need auth!
+  if (route.dontAuth.hasOwnProperty(url)) {
+    if (user) {
+      // back history url
+      const prevUrl = sessionStorage.getItem("urlPrev");
+      helper.modifyUrl("This page", prevUrl);
+
+      // create new url
+      const new_url = new URL(prevUrl);
+      const new_url_parse = UrlParser.parseActiveUrlWithoutCombinerWithParams(new_url);
+      // redirect page;
+      const page = route[new_url_parse.resource] || route.needAuth[new_url_parse.resource];
+      page.index({ root: document.getElementById("main"), currentURL: new_url_parse });
+      return { redirect: page };
+    } else {
+      // return page
+      return route.dontAuth[url];
+    }
+  }
+
   // return page doesn't need a authentication
   const page = route[url];
+
   return page;
 }
 
