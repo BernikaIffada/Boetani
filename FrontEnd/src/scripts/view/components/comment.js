@@ -54,7 +54,7 @@ class Comment extends HTMLElement {
     const form_comment = `
     <div class="form_comment collapsing">
       <span class="user">rasyad</span>
-      <form id="addcomment" >
+      <form id="addcomment">
         <input type="text" name="id_comment" id="id_comment" value="${this.idComment}" hidden/>
         <div class="input_group">
             <div class="input_item">
@@ -110,6 +110,8 @@ class Comment extends HTMLElement {
         $(`comment-card[data-id="${this.idComment}"] > .form_comment`).remove();
       }, 310);
     }
+
+    this.#afterRender();
   }
 
   render() {
@@ -170,8 +172,24 @@ class Comment extends HTMLElement {
   }
 
   #afterRender() {
+    // binding
+    this.sendComment = this.sendComment.bind(this);
     // handler
     $(`comment-card[data-id='${this.idComment}'] > .action> #comment`).click(this.commentFormTrigger);
+    $("#addcomment input[type='submit']").click(this.sendComment);
+  }
+
+  sendComment(ev) {
+    ev.preventDefault();
+    // collecting input
+    const textAreaInputVal = $("#addcomment textarea#com_input").val();
+    const newChildThis = {
+      id: this.idComment,
+      author: JSON.parse(localStorage.getItem("user")),
+      comment: textAreaInputVal,
+    };
+
+    // do hit api
   }
 }
 
