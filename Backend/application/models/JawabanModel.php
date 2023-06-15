@@ -44,4 +44,10 @@ class JawabanModel extends CI_Model
         WHERE a.id_pertanyaan IN ?
         ORDER BY a.created_at', [$pertanyaanIds])->result();
     }
+
+    public function delete_jawaban($id_jawaban)
+    {
+      $this->db->where('id', $id_jawaban);
+      return $this->db->delete('jawaban');
+    }
 }
