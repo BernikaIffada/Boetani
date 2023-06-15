@@ -15,14 +15,20 @@ const APIHELPER = {
   },
 
   async addQuestion(question) {
+    // create form data
+    const formData = new FormData();
+    formData.append("id", question.id);
+    formData.append("judul", question.judul);
+    formData.append("isi", question.isi);
+    formData.append("image[]", question.image);
+    formData.append("id_kategori", 9);
+
     const options = {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(question),
+      mode: "cors",
+      body: formData,
     };
-    const response = await fetch(`${BASE_URL}/endpoint?action="add"`, options);
+    const response = await fetch(`${BASE_URL}/pertanyaan?action=add`, options);
     const responseJSON = await response.json();
     return responseJSON;
   },

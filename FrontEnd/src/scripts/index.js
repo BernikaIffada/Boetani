@@ -1,6 +1,5 @@
 import "regenerator-runtime";
 import $ from "jquery";
-// import "../styles/posting-view.scss"; 
 import "../styles/style.scss";
 import App from "./view/App.js";
 import Auth from "../scripts/routes/middleware";
@@ -12,6 +11,7 @@ import "./view/components/notification-card";
 import "./view/components/comment";
 
 $(document).ready(() => {
+  $("#load_tailwind_class").remove();
   // init app
   const app = new App({
     // init shell

@@ -27,7 +27,14 @@ class Api extends RestController
   //  method get user by id 
   private function getUserById($id)
   {
-    return $this->db->get_where('user', "id = $id")->result()[0];
+    $user = $this->db->get_where('user', "id = $id")->result();
+
+  
+    if(count($user)<=0){
+      return [];
+    }else{
+      return $user[0];
+    }
   }
 
   // method get kategori by id
@@ -40,6 +47,15 @@ class Api extends RestController
   public function getAllPertanyaanResponse()
   {
     $pertanyaan = $this->PertanyaanModel->all_pertanyaan();
+
+    if(count($pertanyaan)<=0){
+      return [
+        "status" => "Success",
+        "error" => "false",
+        "pertanyaan" => []
+      ];
+    }
+
     $pertanyaanIds = []; // [ { id_pertanyaan: 1 }, { id_pertanyaan: 2 } ]
 
     // get id pertanyaan and user name  and kategori name
@@ -255,6 +271,16 @@ class Api extends RestController
     $id = $this->get('id');
     $user = $this->getUserById($id);
 
+    if(count($user)<=0){
+      $this->response(
+        [
+          "status" => "succes",
+          "error" => "false",
+          "user" => []
+        ],
+        200
+      );
+    }
     // public
     $user = [
       "id" => $user->id,

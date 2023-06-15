@@ -1,6 +1,5 @@
 import $ from "jquery";
 import logoutSVG from "../../../template/logout-svg.html";
-import imgR from "../../../assets/img/dev/rasyad.png";
 import avatar from "../../../assets/img/dump/avatar.png";
 import editSVG from "../../../template/edit-svg.html";
 import editProfilSVG from "../../../template/editProfil-svg.html";
@@ -28,8 +27,6 @@ const profile = {
     // preload
     await this.pre();
     const elQuestions = this.dataLoad.qUser?.map((q) => {
-      // <question-card data-id="8a9dfqj4f0wqh9jerqn" data-img="${imgR}" data-author="Jhon doe" data-date="19 Juli 2023" data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit." data-summary="Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum quisquam eius sed odit fugiaadjsdi ewuaowe dfsd tkldaiu werxfd werawet daweradf wtrgasdf afwdjubwef wqwesdaawf" data-countComment="3" data-categories="lahan kering, lahan basah, mangga, jeruk"></question-card>
-
       const elm = document.createElement("question-card");
       elm.dataset.id = q.id_pertanyaan;
       elm.dataset.img = q.img ? APIHELPER.getImagePath(q.img[0]) : false;
@@ -145,7 +142,7 @@ const profile = {
     `;
     $(root).html(html);
     this.afterRender();
-    
+
     // append
     $("#question_div_section>.content").append(elQuestions);
 

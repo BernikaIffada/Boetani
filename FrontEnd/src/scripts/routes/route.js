@@ -7,7 +7,6 @@ import modalAlertLogin from "../view/modal/alert-login";
 import registration from "../view/pages/registration";
 import questions from "../view/pages/questions";
 import posting from "../view/pages/posting";
-import comment from "../view/pages/comment";
 import detail from "../view/pages/detail";
 import profile from "../view/pages/profile";
 import notification from "../view/modal/notification";
@@ -32,7 +31,6 @@ const route = {
     profile: profile,
     addposting: posting,
     notification: notification,
-    comment: comment,
   },
   dontAuth: {
     registration: registration,

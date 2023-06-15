@@ -2230,6 +2230,32 @@ comment-card {
   }
 }
 
+// custom
+#add_posting_page {
+  .container {
+    section {
+      height: 600px;
+      @apply md:h-fit;
+
+      label[for="dropzone-file"] {
+        overflow: hidden;
+        position: relative;
+
+        img {
+          width: 100%;
+          object-fit: cover;
+          max-height: 300px;
+        }
+      }
+    }
+  }
+
+  button {
+    @apply w-full;
+    @apply md:w-fit;
+  }
+}
+
 @media (min-width: 768px) {
   nav {
     a {

@@ -1,10 +1,6 @@
 import $ from "jquery";
 import plusSVG from "../../../template/plus-svg.html";
 import searchSVG from "../../../template/search-svg.html";
-import imgB from "../../../assets/img/dev/bernika.png";
-import imgI from "../../../assets/img/dev/intan.png";
-import imgL from "../../../assets/img/dev/lukman.png";
-import imgR from "../../../assets/img/dev/rasyad.png";
 import APIHELPER from "../../data/api-helper";
 const question = {
   async pre() {
@@ -30,7 +26,11 @@ const question = {
         element.dataset.countComment = q.jawaban;
         element.dataset.categories = q.kategori?.join(", ");
 
-        console.log(q.jawaban);
+        let img;
+        if (q.image.includes("[")) {
+          img = JSON.parse(q.image);
+        }
+        element.dataset.img = APIHELPER.getImagePath(img);
         return element;
       });
     }
