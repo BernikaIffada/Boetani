@@ -1,8 +1,8 @@
-const BASE_URL = "";
+const BASE_URL = "http://localhost:8000/boetani/Backend/api";
 
 const APIHELPER = {
   async getAllQuestions() {
-    const response = await fetch(`${BASE_URL}/endpoint`);
+    const response = await fetch(`${BASE_URL}/pertanyaan`);
     const responseJSON = await response.json();
     return responseJSON;
   },
@@ -26,3 +26,5 @@ const APIHELPER = {
     return responseJSON;
   },
 };
+
+export default APIHELPER;

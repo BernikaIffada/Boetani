@@ -5,6 +5,8 @@ const webpack = require("webpack");
 
 module.exports = {
   entry: {
+    // ini lu ganti make js yang baru lu buat "..../index.js"
+    // ganti jadi "..../<script-lu>.js"
     app: path.resolve(__dirname, "src/scripts/index.js"),
     sw: path.resolve(__dirname, "src/scripts/sw.js"),
   },

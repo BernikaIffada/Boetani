@@ -17,7 +17,7 @@ import notificationSVG from "../../template/notification-svg.html";
 import $ from "jquery";
 
 function logout() {
-  sessionStorage.removeItem("user");
+  localStorage.removeItem("user");
   location = "/";
 }
 
@@ -66,15 +66,13 @@ function routing(url = 404) {
 
   if (url === "logout") {
     logout();
-    return undefined;
+    return landing;
   }
-
 
   const urlLandingIgnore = ["/", "modalalertlogin", "login"];
   if (!urlLandingIgnore.includes(url)) {
     $("body").removeClass("landing_session");
   }
-
 
   // remove collapse navbar if change page
   $("nav > button").removeClass("isCollapse");
@@ -115,6 +113,7 @@ function routing(url = 404) {
 
   // return page doesn't need a authentication
   const page = route[url];
+
   return page;
 }
 
