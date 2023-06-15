@@ -440,6 +440,8 @@ class Api extends RestController
     $this->response($response["data"], $response["statusCode"]);
   }
 
+  // hapus pertanyaan
+
   public function pertanyaan_delete()
   {
     $pertanyaan_id = $this->uri->segment(3);
@@ -550,77 +552,6 @@ class Api extends RestController
       'message' => 'Registrasi successful',
     ], RestController::HTTP_OK);
   }
-
-  public function profile_post()
-  {
-    $data = $this->post();
-    $query = $this->query("action");
-
-    if (!($data["id"] === null)) {
-      // cek apakah hash nya berhasil di convert tidak 
-      // jika ditemukan maka lanjutkan
-      try {
-        if ($query) {
-          if ($query === "edit") {
-            // uploading
-            $data["image"] = $this->imageUploads();
-            $data["image"] = count($data["image"]) === 0 ? "": $data["image"][0];
-            $this->User->edit_profile($data);
-            $response = [
-              "data" => [
-                "status" => "Success",
-                "error" => "false",
-                "msg" => "Berhasil di ubah"
-              ],
-              "statusCode" => RestController::HTTP_CREATED
-            ];
-          } else {
-            $response = [
-              "data" => [
-                "status" => "Fail",
-                "error" => "true",
-                "message" => "This $query action is not the 'action'"
-              ],
-              "statusCode" => 400
-            ];
-          }
-        } else {
-          $response = [
-            "data" => [
-              "status" => "Fail",
-              "error" => "true",
-              "message" => "This URL and method is no action"
-            ],
-            "statusCode" => 400
-          ];
-        }
-      }
-      // jika tidak jalankan ini
-      catch (Exception $e) {
-        $response = [
-          "data" => [
-            "status" => "Fail",
-            "error" => "true",
-            "message" => "Id not found"
-          ],
-          "statusCode" => 404
-        ];
-      }
-    } else {
-      $response = [
-        "data" => [
-          "status" => "Fail",
-          "error" => "true",
-          "message" => "Not have id"
-        ],
-        "statusCode" => 400
-      ];
-    }
-
-    $this->response($response["data"], $response["statusCode"]);
-  }
-
-  
 }
 
 
@@ -635,6 +566,14 @@ class Api extends RestController
     localhost/boetani/api/pertanyaan?action=delete
     localhost/boetani/api/login
     localhost/boetani/api/register
+
+
+    <<< belum dicoba >>>
+    localhost/boetani/api/jawaban?action=add
+    localhost/boetani/api/jawaban?action=delete
+    localhost/boetani/api/balasan?action=add
+    localhost/boetani/api/balasan?action=delete
+
     $BASE_URL_IMAGES = "http://localhost:8000/boetani/backend/images/";
  */
 
