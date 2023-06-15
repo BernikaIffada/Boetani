@@ -411,6 +411,8 @@ class Api extends RestController
     $this->response($response["data"], $response["statusCode"]);
   }
 
+  // hapus pertanyaan
+
   public function pertanyaan_delete()
   {
     $pertanyaan_id = $this->uri->segment(3);
@@ -528,6 +530,213 @@ class Api extends RestController
       'message' => 'Registrasi successful',
     ], RestController::HTTP_OK);
   }
+
+
+  //  post jawaban handler
+  public function jawaban_post()
+  {
+    $query = $this->query("action");
+    // storing
+    if ($query) {
+      if ($query === "add") {
+        // get body request
+        $jawaban = $this->post();
+
+        // validating
+        $wouldHave = ["isi"];;
+        $isValidate = true;
+        foreach ($wouldHave as $key) {
+          if (!array_key_exists($key, $jawaban)) {
+            $response = [
+              "data" => [
+                "status" => "Fail",
+                "error" => "true",
+                "message" => "Object question doesn't have '$key' property"
+              ],
+              "statusCode" => 400
+            ];
+            $isValidate = false;
+          }
+        }
+        // storing
+        if ($isValidate) {
+          try {
+            $this->JawabanModel->add_jawaban($jawaban);
+            $response = [
+              "data" => [
+                "status" => "Success",
+                "error" => "false",
+                "question" => $this->JawabanModel->newest_jawaban()
+              ],
+              "statusCode" => 201
+            ];
+          } catch (Exception $e) {
+            $response = [
+              "data" => [
+                "status" => "Fail",
+                "error" => "true",
+                "message" => "You must login or categori selected is unregisted"
+              ],
+              "statusCode" => 401
+            ];
+          }
+        } else {
+          $response = [
+            "data" => [
+              "status" => "Fail",
+              "error" => "true",
+              "message" => "This $query action is not the 'action'"
+            ],
+            "statusCode" => 400
+          ];
+        }
+      } else {
+        $response = [
+          "data" => [
+            "status" => "Fail",
+            "error" => "true",
+            "message" => "This URL and method is no action"
+          ],
+          "statusCode" => 400
+        ];
+      }
+      // upvoting
+      $this->response($response["data"], $response["statusCode"]);
+    }
+  }
+
+  // hapus jawaban
+  public function jawaban_delete()
+  {
+    $jawaban_id = $this->uri->segment(3);
+    try {
+      $id = $this->getIdByHash($jawaban_id);
+      $this->JawabanModel->delete_jawaban($id);
+
+      $response = [
+        "data" => [
+          "status" => "Success",
+          "error" => "false",
+          "message" => "Answer has been deleted"
+        ],
+        "statusCode" => 200
+      ];
+      $this->response($response['data'], $response['statusCode']);
+    } catch (\Throwable $th) {
+      $response = [
+        "data" => [
+          "status" => "Fail",
+          "error" => "true",
+          "message" => "Answer cannot be deleted"
+        ],
+        "statusCode" => 400
+      ];
+      $this->response($response['data'], $response['statusCode']);
+    }
+  }
+
+  //  post balasan handler
+  public function balasan_post()
+  {
+    $query = $this->query("action");
+    // storing
+    if ($query) {
+      if ($query === "add") {
+        // get body request
+        $balasan = $this->post();
+
+        // validating
+        $wouldHave = ["isi"];
+        $isValidate = true;
+        foreach ($wouldHave as $key) {
+          if (!array_key_exists($key, $balasan)) {
+            $response = [
+              "data" => [
+                "status" => "Fail",
+                "error" => "true",
+                "message" => "Object question doesn't have '$key' property"
+              ],
+              "statusCode" => 400
+            ];
+            $isValidate = false;
+          }
+        }
+        // storing
+        if ($isValidate) {
+          try {
+            $this->BalasanModel->add_balasan($balasan);
+            $response = [
+              "data" => [
+                "status" => "Success",
+                "error" => "false",
+                "question" => $this->BalasanModel->newest_balasan()
+              ],
+              "statusCode" => 201
+            ];
+          } catch (Exception $e) {
+            $response = [
+              "data" => [
+                "status" => "Fail",
+                "error" => "true",
+                "message" => "You must login or categori selected is unregisted"
+              ],
+              "statusCode" => 401
+            ];
+          }
+        } else {
+          $response = [
+            "data" => [
+              "status" => "Fail",
+              "error" => "true",
+              "message" => "This $query action is not the 'action'"
+            ],
+            "statusCode" => 400
+          ];
+        }
+      } else {
+        $response = [
+          "data" => [
+            "status" => "Fail",
+            "error" => "true",
+            "message" => "This URL and method is no action"
+          ],
+          "statusCode" => 400
+        ];
+      }
+      // upvoting
+      $this->response($response["data"], $response["statusCode"]);
+    }
+  }
+
+  // hapus balasan
+  public function balasan_delete()
+  {
+    $balasan_id = $this->uri->segment(3);
+    try {
+      $id = $this->getIdByHash($balasan_id);
+      $this->BalasanModel->delete_balasan($id);
+
+      $response = [
+        "data" => [
+          "status" => "Success",
+          "error" => "false",
+          "message" => "Reply has been deleted"
+        ],
+        "statusCode" => 200
+      ];
+      $this->response($response['data'], $response['statusCode']);
+    } catch (\Throwable $th) {
+      $response = [
+        "data" => [
+          "status" => "Fail",
+          "error" => "true",
+          "message" => "Reply cannot be deleted"
+        ],
+        "statusCode" => 400
+      ];
+      $this->response($response['data'], $response['statusCode']);
+    }
+  }
 }
 
 /*
@@ -540,4 +749,12 @@ class Api extends RestController
     localhost/boetani/api/pertanyaan?action=delete
     localhost/boetani/api/login
     localhost/boetani/api/register
+
+
+    <<< belum dicoba >>>
+    localhost/boetani/api/jawaban?action=add
+    localhost/boetani/api/jawaban?action=delete
+    localhost/boetani/api/balasan?action=add
+    localhost/boetani/api/balasan?action=delete
+
  */
