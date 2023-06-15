@@ -542,7 +542,7 @@ class Api extends RestController
         $jawaban = $this->post();
 
         // validating
-        $wouldHave = ["isi"];;
+        $wouldHave = ["id_pertanyaan", "isi"];;
         $isValidate = true;
         foreach ($wouldHave as $key) {
           if (!array_key_exists($key, $jawaban)) {

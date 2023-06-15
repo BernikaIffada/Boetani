@@ -1,50 +1,44 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
-
+// extends class Model
 class BalasanModel extends CI_Model
 {
-    protected $table = 'balasan';
-    protected $primaryKey = 'id_balasan';
+public $id_jawaban;
+  public $isi;
+  public $id;
+  public $created_at;
+  public $updated_at;
+  // public $upvote;
+  // public $downvote;
 
-    protected $returnType = 'object';
-    protected $useSoftDeletes = false;
+  // function untuk insert data ke tabel balasan
+  public function add_balasan($balasan)
+  {
+    // store to prop this model
+    $this->id_jawaban = $balasan["id_jawaban"];
+    $this->id = $balasan["id"];
+    $this->isi = $balasan["isi"];
+    // $this->upvote = 0;
+    // $this->downvote = 0;
+    $this->created_at = date("Y-m-d", time());
+    $this->updated_at = date("Y-m-d", time());
 
-    protected $allowedFields = ['id_jawaban', 'id', 'isi'];
+    // recording this model to table balasan in database
+    try {
+      $result = $this->db->insert("balasan", $this);
+      return $result;
+    } catch (Exception $e) {
+      throw new Exception("Unauthorized or Unregisted");
+    }
+  }
 
-    protected $useTimestamps = true;
-    protected $createdField = 'created_at';
-    protected $updatedField = 'updated_at';
-    protected $deletedField = 'deleted_at';
-
-    protected $validationRules = [];
-    protected $validationMessages = [];
-    protected $skipValidation = false;
-
-    public function updateWaktu($id_balasan)
+    //  mengambil data yang baru masuk
+    public function newest_balasan()
     {
-        return $this->query('UPDATE balasan SET updated = NOW() WHERE id_balasan = ?', [$id_balasan]);
+      $newest = $this->db->query("SELECT * FROM `balasan` ORDER BY id_balasan DESC LIMIT 1")->result();
+      return $newest;
     }
 
-    public function listByIdJawaban($id_jawaban)
-    {
-        return $this->db->get_where("balasan", "id_jawaban = $id_jawaban")->result();
-    }
-
-    public function listById($id_jawaban)
-    {
-        return $this->query('SELECT a.id AS id_jawaban, a.isi as b.id AS id_balasan, b.isi AS isi_balasan, b.nama AS FROM balasan a
-        LEFT JOIN balasan b ON a.id = b.id_jawaban
-        WHERE a.id_jawaban = ?
-        ORDER BY a.created, b.created', [$id_jawaban])->getResult();
-    }
-
-    public function listByJawabanIds($jawabanIds)
-    {
-        return $this->db->query('SELECT a.* FROM balasan a
-        WHERE a.id_jawaban IN ?
-        ORDER BY a.created_at', [$jawabanIds])->result();
-    }
-
+    //menghapus balasan
     public function delete_balasan($id_balasan)
     {
       $this->db->where('id', $id_balasan);
