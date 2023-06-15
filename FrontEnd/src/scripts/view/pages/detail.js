@@ -7,6 +7,8 @@ import $ from "jquery";
 const detail = {
   fotoFiles: [],
   pre(url) {
+    $("nav .menu_container a").removeClass("isActive");
+    $("nav .menu_container .nav_fix a:last-of-type").addClass("isActive");
     const user = localStorage.getItem("user") || null;
     const question = url;
 
@@ -99,7 +101,8 @@ const detail = {
                                 <input type="file" name="foto[]" id="foto_input" hidden multiple/>
                             </div>
                             <div class="input_item">
-                                <div id="review_image"></div>
+                                <div id="review_image">
+                                </div>
                                 <textarea name="comment_input" id="comment_input" required></textarea>
                                 <label for="comment_input">Ketik jawaban anda...</label>
                             </div>
@@ -126,19 +129,54 @@ const detail = {
     if ($(window).width() >= 768) {
       $("#detail_page > .title").remove();
     }
-    $("#foto_input").change(this.addFoto);
+    $("#foto_input").change(this.addFotoHandler);
     $("form#addcomment").submit(this.addComment);
   },
 
-  addFoto(ev) {
-    detail.fotoFiles.push(this.files[0]);
+  addFotoHandler() {
+    const files = Array.from(this.files);
+
+    // validating and push file
+    files.forEach((file) => {
+      if (file?.type.includes("image")) {
+        detail.fotoFiles.push(file);
+        console.log(detail.fotoFiles);
+      } else {
+        alert("Must image format (jpg/jpeg/png)");
+      }
+    });
+
+    // review file
+    if (detail.fotoFiles.length >= 1) {
+      const review = $("#addcomment .input_item > #review_image");
+
+      const elImageHolder = detail.fotoFiles.map((file) => {
+        const div = document.createElement("div");
+        $(div).addClass("image_holder");
+        $(div).html(`
+            <img src="${URL.createObjectURL(file)}"/>
+        `);
+
+        return div;
+      });
+
+      const container = document.createElement("div");
+      $(container).addClass("container");
+      $(container).html(elImageHolder);
+
+      //   store
+      $(review).html(container);
+
+      $(".input_item label[for='comment_input']").addClass("review_image_active");
+    } else {
+      $(".input_item label[for='comment_input']").removeClass("review_image_active");
+    }
   },
 
+  //   kerjakan!
   addComment(ev) {
     ev.preventDefault();
-    const form = ev.currentTarget;
-    const fotoInput = $(form).find("#foto_input");
-    const valComment = $("#comment_input").val();
+    // collecting input
   },
 };
 
