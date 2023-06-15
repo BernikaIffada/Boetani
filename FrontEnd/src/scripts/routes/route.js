@@ -25,9 +25,10 @@ const route = {
   login: modalLogin,
   registration: registration,
   questions: questions,
+  
   needAuth: {
-    // addposting: posting,
     profile: profile,
+    addposting: posting,
   },
 };
 

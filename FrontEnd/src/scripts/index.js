@@ -1,5 +1,6 @@
 import "regenerator-runtime";
 import $ from "jquery";
+// import "../styles/posting-view.scss";
 import "../styles/style.scss";
 import App from "./view/App.js";
 
