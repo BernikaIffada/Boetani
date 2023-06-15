@@ -412,6 +412,7 @@ class Api extends RestController
   }
 
   // hapus pertanyaan
+
   public function pertanyaan_delete()
   {
     $pertanyaan_id = $this->uri->segment(3);
@@ -749,9 +750,11 @@ class Api extends RestController
     localhost/boetani/api/login
     localhost/boetani/api/register
 
+
     <<< belum dicoba >>>
     localhost/boetani/api/jawaban?action=add
     localhost/boetani/api/jawaban?action=delete
     localhost/boetani/api/balasan?action=add
     localhost/boetani/api/balasan?action=delete
+
  */
