@@ -8,7 +8,7 @@ class Pertanyaan extends RESTController
   public function __construct()
   {
     parent::__construct();
-    $this->load->model('M_Pertanyaan');
+    $this->load->model('PertanyaanModel');
     $this->load->model('JawabanModel');
     $this->load->model('BalasanModel');
   }
@@ -16,7 +16,7 @@ class Pertanyaan extends RESTController
   // method untuk menampilkan semua pertanyaan 
   public function getAllPertanyaanResponse()
   {
-    $pertanyaan = $this->M_Pertanyaan->all_pertanyaan();
+    $pertanyaan = $this->PertanyaanModel->all_pertanyaan();
     $pertanyaanIds = []; // [ { id_pertanyaan: 1 }, { id_pertanyaan: 2 } ]
 
     foreach ($pertanyaan as $p) {
@@ -125,7 +125,7 @@ class Pertanyaan extends RESTController
   // untuk menambah pertanyaan menaggunakan method post
   public function add_post()
   {
-    $response = $this->M_Pertanyaan->add_pertanyaan()(
+    $response = $this->PertanyaanModel->add_pertanyaan()(
       $this->post('id_kategori'),
       $this->post('judul'),
       $this->post('isi'),
@@ -136,7 +136,7 @@ class Pertanyaan extends RESTController
   // update pertanyaan menggunakan method put
   public function update_put()
   {
-    $response = $this->M_Pertanyaan->update_pertanyaan(
+    $response = $this->PertanyaanModel->update_pertanyaan(
       $this->put('id_kategori'),
       $this->put('judul'),
       $this->put('isi'),
@@ -145,9 +145,9 @@ class Pertanyaan extends RESTController
     $this->response($response);
   }
   // hapus pertanyaan menggunakan method delete
-  public function delete_delete()
+  public function pertanyaan_delete()
   {
-    $response = $this->M_Pertanyaan->delete_pertanyaan(
+    $response = $this->PertanyaanModel->delete_pertanyaan(
       $this->delete('id_pertanyaan')
     );
     $this->response($response);
