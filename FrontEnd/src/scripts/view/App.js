@@ -4,7 +4,6 @@ import routing from "../routes/route.js";
 import $ from "jquery";
 import helper from "../helper.js";
 
-
 export default class App {
   constructor({ header, main, footer }) {
     this.header = header;

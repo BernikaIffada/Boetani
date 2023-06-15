@@ -26,23 +26,17 @@ const route = {
   "/": landing,
   404: notFound,
   questions: questions,
-<<<<<<< HEAD
-  
-=======
   detail: detail,
->>>>>>> 63673ab0372fb73ca6ee653eb1957d06a7a17d28
   needAuth: {
-    profile: profile,
-<<<<<<< HEAD
     addposting: posting,
-=======
+    profile: profile,
+    addposting: posting,
     notification: notification,
     comment: comment,
   },
   dontAuth: {
     registration: registration,
     login: modalLogin,
->>>>>>> 63673ab0372fb73ca6ee653eb1957d06a7a17d28
   },
 };
 

@@ -27,7 +27,7 @@ class BalasanModel extends CI_Model
 
     public function listByIdJawaban($id_jawaban)
     {
-        return $this->db->get_where("balasan", "id_jawaban = $id_jawaban")->result();
+        return $this->db->get_where("balasan", "id_jawaban = '$id_jawaban'")->result();
     }
 
     public function listById($id_jawaban)
@@ -43,5 +43,11 @@ class BalasanModel extends CI_Model
         return $this->db->query('SELECT a.* FROM balasan a
         WHERE a.id_jawaban IN ?
         ORDER BY a.created_at', [$jawabanIds])->result();
+    }
+
+    public function delete_balasan($id_balasan)
+    {
+      $this->db->where('id', $id_balasan);
+      return $this->db->delete('balasan');
     }
 }

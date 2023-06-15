@@ -4,10 +4,10 @@ import helper from "../../helper";
 class questioncard extends HTMLElement {
   connectedCallback() {
     this.questionId = this.getAttribute("data-id");
-    this.img = this.getAttribute("data-img");
+    this.img = this.getAttribute("data-img") || "false";
     this.author = this.getAttribute("data-author");
     this.title = this.getAttribute("data-title");
-    this.countComment = this.getAttribute("data-countComment");
+    this.countComment = this.getAttribute("data-count-comment");
     this.summaryRaw = this.getAttribute("data-summary");
     this.date = this.getAttribute("data-date");
     const categoriesRaw = this.getAttribute("data-categories");
@@ -16,9 +16,9 @@ class questioncard extends HTMLElement {
   }
   render() {
     const ww = window.innerWidth;
-    let img = this.img ? `<img src="${this.img}"/>` : `<span class="img_holder"></span>`;
+    let img = this.img === "false" ? `<span class="img_holder"></span>` : `<img src="${this.img}"/>`;
     if (ww < 640) {
-      img = this.img ? `<img src="${this.img}"/>` : "<br/>";
+      img = this.img === "false" ? "<br/>" : `<img src="${this.img}"/>`;
     }
     let summary = null;
 
