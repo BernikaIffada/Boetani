@@ -6,7 +6,7 @@ module.exports = merge(common, {
   mode: "development",
   devServer: {
     static: {
-      directory: path.join(__dirname, "src"),
+      directory: path.join(__dirname, "src/template"),
     },
     port: 3000,
     open: true,

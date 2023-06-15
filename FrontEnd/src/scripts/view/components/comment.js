@@ -123,6 +123,8 @@ class Comment extends HTMLElement {
         $(`comment-card[data-id="${this.idComment}"] > .form_comment`).remove();
       }, 310);
     }
+
+    this.#afterRender();
   }
 
   render() {

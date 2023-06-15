@@ -30,6 +30,7 @@ const route = {
   needAuth: {
     addposting: posting,
     profile: profile,
+    addposting: posting,
     notification: notification,
     comment: comment,
   },

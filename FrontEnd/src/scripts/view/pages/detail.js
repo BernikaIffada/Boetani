@@ -169,6 +169,7 @@ const detail = {
       $("#detail_page > .title").remove();
     }
 
+
     // append jawaban
 
     $("#detail_page > .container_dicussion > .content").html(elDisscuss);

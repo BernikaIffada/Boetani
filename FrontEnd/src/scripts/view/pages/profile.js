@@ -7,6 +7,7 @@ import editProfilSVG from "../../../template/editProfil-svg.html";
 import eyeCloseSVG from "../../../template/eyeClose-svg.html";
 import eyeOpenSVG from "../../../template/eyeOpen-svg.html";
 import lockSVG from "../../../template/lock-svg.html";
+
 import Auth from "../../routes/middleware";
 import APIHELPER from "../../data/api-helper";
 
@@ -82,7 +83,6 @@ const profile = {
             <div class="active" id="question_div_section">
               <span class="title"><span>${this.dataLoad.qUser?.length || 0}</span><span>Kontribusi</span></span>
               <div class="content">
-               
               </div>
             </div>
 
@@ -145,7 +145,7 @@ const profile = {
     `;
     $(root).html(html);
     this.afterRender();
-
+    
     // append
     $("#question_div_section>.content").append(elQuestions);
 
