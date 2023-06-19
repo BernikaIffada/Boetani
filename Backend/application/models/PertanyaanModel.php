@@ -52,7 +52,7 @@ class PertanyaanModel extends CI_Model
   // mengambil semua pertanyaan
   public function all_pertanyaan()
   {
-    $all = $this->db->get("pertanyaan")->result();
+    $all = $this->db->order_by("no","DESC")->get("pertanyaan")->result();
     return $all;
   }
 

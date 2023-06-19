@@ -16,8 +16,9 @@ class Comment extends HTMLElement {
     this.upvote = this.getAttribute("data-upvote") || "0";
     this.downvote = this.getAttribute("data-downvote") || "0";
     this.createdAt = this.getAttribute("data-created_at");
-    this.selectability = (this.getAttribute("selectability") || "false") === "true";
-    this.selected = this.selectability ? this.getAttribute("selected") || false : false;
+    this.selectability = (this.getAttribute("data-selectability") || "false") === "true";
+    this.selected = this.selectability === "true" ? this.getAttribute("data-selected") || "false" : "false";
+    this.elementType = this.getAttribute("data-element-type");
     this.render();
   }
 
@@ -33,7 +34,7 @@ class Comment extends HTMLElement {
         `;
       }
     }
-    return `<div id="select_btn" class="holder"></div>`;
+    return "";
   }
 
   #isCommentability() {
@@ -197,11 +198,17 @@ class Comment extends HTMLElement {
     ev.preventDefault();
     // collecting input
     const textAreaInputVal = $("#addcomment textarea#com_input").val();
-    const newChildThis = {
-      id: this.idComment,
-      author: Auth.index(),
-      comment: textAreaInputVal,
-    };
+
+    let newChildThis;
+    if (this.elementType === "jawaban") {
+      newChildThis = {
+        id_pertanyaan: this.targetId,
+        id_user: Auth.index(),
+        isi: textAreaInputVal,
+      };
+    }
+
+    console.log(newChildThis);
 
     // do hit api
   }

@@ -9,6 +9,7 @@ class BalasanModel extends CI_Model
   public $updated_at;
   public $upvote;
   public $downvote;
+  public $id_balasan;
 
   // function untuk insert data ke tabel balasan
   public function add_balasan($balasan)
@@ -58,6 +59,14 @@ class BalasanModel extends CI_Model
     $balasan = $this->db->get_where("balasan", "id_balasan = '$id'")->result();
     return $balasan;
   }
+
+  // mengambil balasan by id
+  public function listByIdJawaban($id)
+  {
+    $balasan = $this->db->get_where("balasan", "id_jawaban = '$id'")->result();
+    return $balasan;
+  }
+  
 
   public function delete_balasan($id_balasan)
   {

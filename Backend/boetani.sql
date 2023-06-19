@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 15 Jun 2023 pada 22.00
+-- Waktu pembuatan: 17 Jun 2023 pada 22.30
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.0.28
 
@@ -48,7 +48,10 @@ CREATE TABLE `jawaban` (
   `id` int(11) NOT NULL,
   `isi` text NOT NULL,
   `created_at` date NOT NULL,
-  `updated_at` date NOT NULL
+  `updated_at` date NOT NULL,
+  `upvote` int(11) NOT NULL,
+  `downvote` int(11) NOT NULL,
+  `no` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -114,18 +117,6 @@ CREATE TABLE `user` (
   `date_created` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data untuk tabel `user`
---
-
-INSERT INTO `user` (`id`, `name`, `email`, `password`, `image`, `role_id`, `is_active`, `date_created`) VALUES
-(1, 'Intan sari duano', 'intan.duano@gmail.com', '$2y$10$jhGcBmz5HJ3OxQkvuRHDUuToxPZXWG86BO7NtSj.Gnb8UcNNXLpni', 'undraw_Mobile_apps_re_3wjf.png', 2, 1, 1685341977),
-(2, 'Lukman', 'lukmanullh23@gmail.com', '$2y$10$89Yk2iT1kHr9Rdt3BwtN6u2fz1b.QDCqpHo/qC2wF55Mo0C4ohDj6', 'default.jpg', 2, 1, 1685522858),
-(3, 'BERNIKA IRNADIANIS IFFADA', 'bernikaiffada@gmail.com', '$2y$10$e4TxRUnjkEB8gVW.lE7hlekzmnHt7hjcIounEJcNXFPkr2Ep0gzsm', 'indonesia.png', 1, 1, 1686116388),
-(4, 'Rasyad', 'rasyadamhar2001@gmail.com', '$2y$10$uDI3WsdpaHeLPV7HJu2XROZc1ydAb3Qz7mjmhIGtQNH/Q4NnOFP0S', '0f3df9ead2cb207d06692da6d8111aa7.png', 2, 1, 1686031354),
-(5, 'Zakariya', 'm.zakariya311@gmail.com', '$2y$10$E9DOlAwlnlOg/TCg/ZXSZe6gIdCgVpbrQP6UMGIIQvv6JD2jfxh/a', 'default.jpg', 2, 1, 1686058629),
-(23, 'Martika Isna Lidya', 'titik30martika@gmail.com', '$2y$10$3kGEMpSNYNdKBJkOnQINt.8jsA8vQgRgyT51XMwODnjqKwVdlZUUW', 'indonesia1.png', 2, 1, 1686493756);
-
 -- --------------------------------------------------------
 
 --
@@ -169,8 +160,9 @@ ALTER TABLE `balasan`
 --
 ALTER TABLE `jawaban`
   ADD PRIMARY KEY (`id_jawaban`),
-  ADD KEY `id_pertanyaan` (`id_pertanyaan`,`id`),
-  ADD KEY `id` (`id`);
+  ADD KEY `id` (`id`),
+  ADD KEY `id_pertanyaan` (`id_pertanyaan`) USING BTREE,
+  ADD KEY `no` (`no`);
 
 --
 -- Indeks untuk tabel `kategori`
@@ -204,6 +196,12 @@ ALTER TABLE `user_token`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `jawaban`
+--
+ALTER TABLE `jawaban`
+  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
@@ -213,13 +211,13 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT untuk tabel `pertanyaan`
 --
 ALTER TABLE `pertanyaan`
-  MODIFY `no` bigint(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `no` bigint(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_token`

@@ -65,11 +65,9 @@ const posting = {
     const insertOBJ = {
       judul: $("#add_posting_page input#judul").val(),
       isi: $("#add_posting_page textarea#pertanyaan").val(),
-      image: posting.fileArr.length ? posting.fileArr[0] : [],
+      image: posting.fileArr?.length ? posting.fileArr[0] : [],
       id: user.id,
     };
-
-    console.log(insertOBJ);
 
     // do send
     const response = await APIHELPER.addQuestion(insertOBJ);

@@ -16,6 +16,18 @@ class Api extends RestController
     $this->load->model('User');
   }
 
+  // fungsi untuk memformat tanggal
+  private function dateFormat($date){
+    $explodeDate = explode("-",$date);
+    $year= $explodeDate[0];
+    $month = (int)$explodeDate[1];
+    $d = $explodeDate[2];
+    
+    $monthList = [" ","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+    return "$d $monthList[$month] $year";
+  }
+
   //   fungsi untuk hash id 
   private function hashId($id)
   {
@@ -27,13 +39,13 @@ class Api extends RestController
   //  method get user by id 
   private function getUserById($id)
   {
-    $user = $this->db->get_where('user', "id = $id")->result();
+    $user = $this->db->get_where('user', "id = $id")->result_object();
 
   
     if(count($user)<=0){
       return [];
     }else{
-      return $user[0];
+      return $user;
     }
   }
 
@@ -56,14 +68,10 @@ class Api extends RestController
       ];
     }
 
-    $pertanyaanIds = []; // [ { id_pertanyaan: 1 }, { id_pertanyaan: 2 } ]
-
-    // get id pertanyaan and user name  and kategori name
+    // get jawaban and user name  and kategori name
     foreach ($pertanyaan as $index => $p) {
-      array_push($pertanyaanIds, $p->id_pertanyaan);
-
       //   get user
-      $user = $this->getUserById($p->id);
+      $user = $this->getUserById($p->id)[0];
       $p->user_name = $user->name;
       $pertanyaan[$index] = $p;
 
@@ -71,40 +79,16 @@ class Api extends RestController
       $kategori = $this->getKategoriById($p->id_kategori);
       $p->kategori = [$kategori -> nama_kategori];
       $pertanyaan[$index] = $p;
+
+      // get jumlah jawaban
+      $pertanyaan[$index]->jawaban = count($this->JawabanModel->jawabanByPertanyaanId($p->id_pertanyaan));
+
+      // overide tanggal
+      $pertanyaan[$index]->created_at = $this->dateFormat($p->created_at);
+      $pertanyaan[$index]->updated_at = $this->dateFormat($p->updated_at);
     }
 
-    $jawaban = $this->JawabanModel->listByPertanyaanIds($pertanyaanIds); // [ { id_pertanyaan: 1, id_jawaban: 1 }, { id_pertanyaan: 2, id_jawaban: 2 } ]
-
-    // jawaban dalam pertanyaan sesuai dengan id_pertanyaan
-    foreach ($jawaban as $j) {
-      foreach ($pertanyaan as $index => $p) {
-        if ($j->id_pertanyaan == $p->id_pertanyaan) {
-          if (property_exists($p, 'jawaban')) {
-            array_push($pertanyaan[$index]->jawaban, $j);
-          } else {
-            $pertanyaan[$index]->jawaban = [$j];
-          }
-
-          break;
-        }
-      }
-    }
-
-    // overide prop jawaban dengan jumlah jawabannya
-    foreach ($pertanyaan as $index => $p) {
-      if (property_exists($p, 'jawaban')) {
-        $answers = $p->jawaban;
-        $countAnswers = count($answers);
-
-        // overiding
-        $pertanyaan[$index]->jawaban = $countAnswers;
-      } else {
-        $pertanyaan[$index]->jawaban = 0;
-      }
-    }
-
-    // overide id pertanyaan menjadi hash
-
+    
 
     // setting response
     $response = [
@@ -133,30 +117,37 @@ class Api extends RestController
 
     $pertanyaan = $pertanyaan[0];
 
+    // overide date
+    $pertanyaan->created_at =  $this->dateFormat($pertanyaan->created_at);
+    $pertanyaan->updated_at =  $this->dateFormat($pertanyaan->updated_at);
+
 
     // get user
-    $user = $this->getUserById($pertanyaan->id);
+    $user = $this->getUserById($pertanyaan->id)[0];
     $pertanyaan->user_name = $user->name;
 
     // getting jawaban by id_pertanyaan
-    $jawabans = $this->JawabanModel->listByIdPertanyaan($id);
+    $jawabans = $this->JawabanModel->jawabanByPertanyaanId($id);
 
     // tambah properti balasan kedalam masing2 object jawaban (jika ada)
     foreach ($jawabans as $index => $jawaban) {
       $balasans = $this->BalasanModel->listByIdJawaban($jawaban->id_jawaban);
      
       // get user
-      $user = $this->getUserById($jawaban->id);
+      $user = $this->getUserById($jawaban->id)[0];
       $jawaban->user_name = $user->name;
       $jawabans[$index] = $jawaban;
 
+      // overide date
+      $jawabans[$index]->created_at =  $this->dateFormat($jawaban->created_at);
+      $jawabans[$index]->updated_at =  $this->dateFormat($jawaban->updated_at);
 
 
 
       if (count($balasans) !== 0) {
         // get user
         foreach ($balasans as $ib => $balasan) {
-          $user = $this->getUserById($balasan->id);
+          $user = $this->getUserById($balasan->id)[0];
           $balasan->user_name = $user->name;
           $balasans[$ib] = $balasan;
         }
@@ -208,6 +199,10 @@ class Api extends RestController
       $kategori = $this->getKategoriById($p->id_kategori);
       $p->kategori = [$kategori -> nama_kategori];
       $pertanyaan[$index] = $p;
+
+      // overide tanggal 
+      $pertanyaan[$index]->created_at = $this->dateFormat($p->created_at);
+      $pertanyaan[$index]->updated_at = $this->dateFormat($p->updated_at);
     }
 
     // return response 
@@ -241,6 +236,7 @@ class Api extends RestController
 
   // fungsi untuk upload gambar
   private function imageUploads(){
+    
     $filePaths = [];
     if(!empty($_FILES)) {
       $count = 0; 
@@ -282,11 +278,11 @@ class Api extends RestController
       );
     }
     // public
-    $user = [
-      "id" => $user->id,
-      "name" => $user->name,
-      "image" => $user->image,
-      "email" => $user->email,
+    $user[0] = [
+      "id" => $user[0]->id,
+      "name" => $user[0]->name,
+      "image" => $user[0]->image,
+      "email" => $user[0]->email,
     ];
 
     $this->response(
@@ -308,8 +304,6 @@ class Api extends RestController
       if ($query === "add") {
         // get body request
         $pertanyaan = $this->post();
-        // print_r($pertanyaan);
-        // die;
         // validating
         $wouldHave = ["judul", "isi", "id","id_kategori"];
         $isValidate = true;
@@ -339,6 +333,7 @@ class Api extends RestController
               "data" => [
                 "status" => "Success",
                 "error" => "false",
+                "message"=>"Pertanyaan kamu berhasil di upload",
                 "question" => $this->PertanyaanModel->newest_pertanyaan()
               ],
               "statusCode" => 201
@@ -569,7 +564,8 @@ class Api extends RestController
         'password' => password_hash(
           $password,
           PASSWORD_DEFAULT
-        )
+        ),
+        'image' => " "
       ];
     $this->db->insert('user', $data);
 
@@ -660,7 +656,7 @@ class Api extends RestController
         $jawaban = $this->post();
 
         // validating
-        $wouldHave = ["isi"];;
+        $wouldHave = ["isi","id_user","id_pertanyaan"];
         $isValidate = true;
         foreach ($wouldHave as $key) {
           if (!array_key_exists($key, $jawaban)) {
@@ -668,7 +664,7 @@ class Api extends RestController
               "data" => [
                 "status" => "Fail",
                 "error" => "true",
-                "message" => "Object question doesn't have '$key' property"
+                "message" => "Object jawaban doesn't have '$key' property"
               ],
               "statusCode" => 400
             ];
@@ -678,12 +674,14 @@ class Api extends RestController
         // storing
         if ($isValidate) {
           try {
+            $jawaban["id_jawaban"] = $this->hashId(time());
             $this->JawabanModel->add_jawaban($jawaban);
             $response = [
               "data" => [
                 "status" => "Success",
                 "error" => "false",
-                "question" => $this->JawabanModel->newest_jawaban()
+                "question" => $this->JawabanModel->newest_jawaban(),
+                "message"=>"Komentar berhasil ditambahkan"
               ],
               "statusCode" => 201
             ];
@@ -697,29 +695,32 @@ class Api extends RestController
               "statusCode" => 401
             ];
           }
-        } else {
-          $response = [
-            "data" => [
-              "status" => "Fail",
-              "error" => "true",
-              "message" => "This $query action is not the 'action'"
-            ],
-            "statusCode" => 400
-          ];
-        }
-      } else {
+        } 
+      }
+      else {
         $response = [
           "data" => [
             "status" => "Fail",
             "error" => "true",
-            "message" => "This URL and method is no action"
+            "message" => "This $query action is not the 'action'"
           ],
           "statusCode" => 400
         ];
-      }
-      // upvoting
-      $this->response($response["data"], $response["statusCode"]);
+      }   
+     
+    }else {
+      $response = [
+        "data" => [
+          "status" => "Fail",
+          "error" => "true",
+          "message" => "This URL and method is no action"
+        ],
+        "statusCode" => 400
+      ];
     }
+
+     // upvoting
+     $this->response($response["data"], $response["statusCode"]);
   }
 
   // hapus jawaban
@@ -853,6 +854,45 @@ class Api extends RestController
       ];
       $this->response($response['data'], $response['statusCode']);
     }
+  }
+
+  // get jawaban handler 
+  public function jawaban_get(){
+    $user = $this->get("user");
+
+    if($user){
+      $jawabans = $this->JawabanModel->getAllByUser($user);
+
+      
+
+      if(count($jawabans) <=0){
+        $response = [
+          "data" =>[
+            "status"=>"Not found",
+            "error"=>"true",
+          ],
+          "statusCode"=>404
+        ];
+      }else{
+        
+        foreach ($jawabans as $index => $jawaban) {
+          // overide tanggal 
+          $jawabans[$index]->created_at = $this->dateFormat($jawaban->created_at);
+          $jawabans[$index]->updated_at = $this->dateFormat($jawaban->updated_at);
+        }
+        $response = [
+        "data" =>[
+          "status"=>"success",
+          "error"=>"false",
+          "jawaban"=>$jawabans,
+        ],
+        "statusCode"=>200
+      ];
+      }
+      
+    }
+
+    $this->response($response["data"],$response["statusCode"]);
   }
 }
 

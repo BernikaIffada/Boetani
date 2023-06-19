@@ -1646,6 +1646,7 @@ comment-card {
       @apply md:rounded-md;
       @apply md:px-5;
       @apply md:py-4;
+      @apply w-full;
       .author_date {
         display: flex;
         justify-content: space-between;
@@ -1669,10 +1670,7 @@ comment-card {
     }
 
     #select_btn {
-      @apply md:w-[90%];
-      @apply lg:w-[50%];
-      @apply xl:w-[30%];
-      @apply 2xl:w-[20%];
+      @apply xl:w-[20%];
       @apply px-3;
       @apply py-1;
       font-family: "opensans-semibold";
@@ -2060,6 +2058,75 @@ comment-card {
                 color: white;
                 @apply text-[16px];
               }
+            }
+
+            > .categories {
+              @apply hidden;
+            }
+          }
+        }
+      }
+    }
+
+    // comment section
+    #comment_div_section {
+      > .content {
+        @apply mt-3;
+        @apply flex;
+        @apply flex-col;
+        @apply gap-y-5;
+
+        question-card {
+          display: block;
+          width: 100%;
+          background-color: #f9f9f9;
+          @apply rounded-md;
+          box-sizing: border-box;
+          @apply py-4;
+          @apply px-6;
+
+          a {
+            width: 100%;
+            span {
+              display: block;
+            }
+            .author_date {
+              @apply flex;
+              @apply justify-between;
+              @apply items-center;
+
+              .author {
+                @apply text-lg;
+                @apply md:text-xl;
+                @apply xl:text-2xl;
+                font-family: "opensans-semibold", sans-serif;
+              }
+
+              .date {
+                @apply md:text-lg;
+                font-family: "opensans-italic", sans-serif;
+              }
+            }
+            > * {
+              width: 100%;
+            }
+
+            > .title {
+              display: none;
+            }
+            > .summary {
+              text-align: justify;
+              @apply lg:w-[85%];
+              @apply mt-1;
+              @apply lg:mt-2;
+              @apply xl:mt-3;
+            }
+            > img {
+              display: none;
+            }
+
+            > .comment {
+              display: none;
             }
 
             > .categories {

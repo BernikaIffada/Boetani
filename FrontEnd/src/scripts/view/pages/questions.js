@@ -29,8 +29,10 @@ const question = {
         let img;
         if (q.image.includes("[")) {
           img = JSON.parse(q.image);
+
+          img = img.length === 0 ? null : img;
         }
-        element.dataset.img = APIHELPER.getImagePath(img);
+        element.dataset.img = img === null ? "false" : APIHELPER.getImagePath(img);
         return element;
       });
     }

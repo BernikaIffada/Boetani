@@ -1,5 +1,5 @@
-const BASE_URL = "http://localhost:8000/boetani/Backend/api";
-const IMAGE_URL = "http://localhost:8000/boetani/Backend/images/";
+const BASE_URL = "http://boetani.infinityfreeapp.com/back/api";
+const IMAGE_URL = "http://boetani.infinityfreeapp.com/back/images/";
 
 const APIHELPER = {
   async getAllQuestions() {
@@ -101,6 +101,29 @@ const APIHELPER = {
       return `${IMAGE_URL}${filename}`;
     }
     return null;
+  },
+
+  async addAnswer(answer) {
+    // create form data
+    const formData = new FormData();
+    formData.append("id_user", answer.id_user);
+    formData.append("id_pertanyaan", answer.id_pertanyaan);
+    formData.append("isi", answer.isi);
+
+    const options = {
+      method: "POST",
+      mode: "cors",
+      body: formData,
+    };
+    const response = await fetch(`${BASE_URL}/jawaban?action=add`, options);
+    const responseJSON = await response.json();
+    return responseJSON;
+  },
+
+  async getJawabanByUser(id) {
+    const response = await fetch(`${BASE_URL}/jawaban/user/${id}`);
+    const responseJSON = await response.json();
+    return responseJSON;
   },
 };
 

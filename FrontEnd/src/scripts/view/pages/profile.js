@@ -6,7 +6,6 @@ import editProfilSVG from "../../../template/editProfil-svg.html";
 import eyeCloseSVG from "../../../template/eyeClose-svg.html";
 import eyeOpenSVG from "../../../template/eyeOpen-svg.html";
 import lockSVG from "../../../template/lock-svg.html";
-
 import Auth from "../../routes/middleware";
 import APIHELPER from "../../data/api-helper";
 
@@ -14,12 +13,18 @@ const profile = {
   async pre() {
     const active = Auth.index();
     const questionsUser = await APIHELPER.getQuestionByUser(active.id);
-    const dataUser = await APIHELPER.getUser(active.id);
+    const userResponse = await APIHELPER.getUser(active.id);
+    const user = userResponse.user[0];
+    user.image = user.image === " " ? null : user.image;
+
+    const jawabanUser = await APIHELPER.getJawabanByUser(active.id);
 
     this.dataLoad = {
-      user: dataUser.user,
+      user: user,
       qUser: questionsUser.error === "true" ? null : questionsUser.pertanyaan,
+      jUser: jawabanUser.error === "true" ? null : jawabanUser.jawaban,
     };
+    console.log(this.dataLoad);
   },
   async index({ root, currentURL }) {
     $("nav .menu_container a").removeClass("isActive");
@@ -33,10 +38,22 @@ const profile = {
       elm.dataset.author = this.dataLoad.user.name;
       elm.dataset.date = q.created_at;
       elm.dataset.title = q.judul;
-      elm.dataset.title = q.judul;
       elm.dataset.summary = q.isi;
       elm.dataset.countComment = 0;
       elm.dataset.categories = "";
+
+      return elm;
+    });
+
+    const elAnswers = this.dataLoad.jUser?.map((j) => {
+      const elm = document.createElement("question-card");
+      elm.dataset.id = j.id_pertanyaan;
+      elm.dataset.author = this.dataLoad.user.name;
+      elm.dataset.date = j.created_at;
+      elm.dataset.summary = j.isi;
+      elm.dataset.categories = "";
+      elm.dataset.img = false;
+      elm.dataset.title = "";
 
       return elm;
     });
@@ -85,7 +102,7 @@ const profile = {
 
             <!-- section jawaban -->
             <div id="comment_div_section">
-              <span class="title"><span>0</span><span>Kontribusi</span></span>
+              <span class="title"><span>${this.dataLoad.jUser?.length || 0}</span><span>Kontribusi</span></span>
               <div class="content">
               </div>
             </div>
@@ -145,6 +162,7 @@ const profile = {
 
     // append
     $("#question_div_section>.content").append(elQuestions);
+    $("#comment_div_section>.content").append(elAnswers);
 
     // handler
     $("#user_image").change(this.addFotoHandler);
@@ -160,7 +178,7 @@ const profile = {
 
     // collecting input
     const updateOBJ = {
-      image: profile.fileArr.length ? profile.fileArr[0] : [],
+      image: profile.fileArr?.length ? profile.fileArr[0] : [],
       name: $("#user_name_input").val(),
       email: $("#user_email_input").val(),
       id: user.id,
@@ -169,7 +187,7 @@ const profile = {
     // do send
     const response = await APIHELPER.editProfile(updateOBJ);
     alert(response.msg);
-    window.location = `/#/profile/${user.id}`;
+    window.location.reload();
   },
 
   afterRender() {

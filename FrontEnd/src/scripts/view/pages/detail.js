@@ -77,19 +77,27 @@ const detail = {
         balasanElement.dataset.created_at = balasan.created_at;
         balasanElement.dataset.comment = balasan.isi;
         balasanElement.dataset.id = balasan.id_balasan;
+        balasanElement.dataset.elementType = "jawaban";
+        balasanElement.dataset.target = jawaban.id_jawaban;
 
         return balasanElement;
       });
 
       const jawabanELement = document.createElement("comment-card");
-      jawabanELement.selected = "false";
-      jawabanELement.selectability = user ? "true" : "false";
+      jawabanELement.dataset.elementType = "jawaban";
+      jawabanELement.dataset.selected = "false";
+      if (user) {
+        jawabanELement.dataset.selectability = user.id === question.id ? "true" : "false";
+      } else {
+        jawabanELement.dataset.selectability = "false";
+      }
       jawabanELement.dataset.downvote = 0;
       jawabanELement.dataset.upvote = 0;
       jawabanELement.dataset.author = jawaban.user_name;
       jawabanELement.dataset.created_at = jawaban.created_at;
       jawabanELement.dataset.comment = jawaban.isi;
       jawabanELement.dataset.id = jawaban.id_jawaban;
+      jawabanELement.dataset.target = question.id_pertanyaan;
 
       $(jawabanELement).html(balasan);
 
@@ -169,9 +177,7 @@ const detail = {
       $("#detail_page > .title").remove();
     }
 
-
     // append jawaban
-
     $("#detail_page > .container_dicussion > .content").html(elDisscuss);
 
     $("#foto_input").change(this.addFotoHandler);
@@ -219,7 +225,7 @@ const detail = {
   },
 
   //   kerjakan!
-  addComment(ev) {
+  async addComment(ev) {
     const { user, question } = detail.dataPreLoad;
     ev.preventDefault();
     if (!user) {
@@ -232,13 +238,16 @@ const detail = {
 
     // collecting input
     const newComment = {
-      idPertanyaan: question.id_pertanyaan,
-      idUser: user.id,
+      id_pertanyaan: question.id_pertanyaan,
+      id_user: user.id,
       files: detail.fotoFiles,
-      comment: $("#addcomment  .input_item>#comment_input").val(),
+      isi: $("#addcomment  .input_item>#comment_input").val(),
     };
 
     // do send comment
+    const result = await APIHELPER.addAnswer(newComment);
+    alert(result.message);
+    window.location.reload();
   },
 };
 
